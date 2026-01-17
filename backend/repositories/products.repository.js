@@ -60,14 +60,14 @@ export async function findAllProducts(limit = 200) {
 }
 
 export async function findAllBrands() {
-  const res = await db.query(
-    `
-    SELECT DISTINCT brand
-    FROM products_with_images
-    ORDER BY brand
-    `,
-  );
-
+  const res = await db.query(`
+    SELECT brand
+    FROM public.products_with_images
+    WHERE brand IS NOT NULL
+    GROUP BY brand
+    ORDER BY LOWER(brand)
+  `);
+  
   return res.rows.map((row) => row.brand);
 }
 
