@@ -5,7 +5,7 @@
 Проект использует архитектуру **full-stack** приложения с разделением на фронтенд и бэкенд.
 
 ```
-korean-cosmetics-2/
+korean-cosmetics-TINT/
 ├── backend/          # Node.js + Express сервер
 ├── src/              # React фронтенд приложение
 ├── public/           # Статические файлы
