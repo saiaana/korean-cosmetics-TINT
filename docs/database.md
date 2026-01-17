@@ -404,25 +404,6 @@ npm run migrate
 
 ---
 
-## Синхронизация изображений
-
-
-**Скрипт:** `backend/scripts/syncCatalogImages.js`
-
-**Процесс:**
-
-1. Получение списка файлов из `catalog_images`
-2. Парсинг имени файла: `{catalog_id}_{position}.{ext}`
-3. Upsert в таблицу `catalog_images`
-
-**Запуск:**
-
-```bash
-node backend/scripts/syncCatalogImages.js
-```
-
----
-
 ## Резервное копирование
 
 Рекомендуется настроить автоматическое резервное копирование базы данных:

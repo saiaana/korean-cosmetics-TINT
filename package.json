@@ -1,26 +1,19 @@
 {
-  "name": "korean-cosmetics",
+  "name": "korean-cosmetics-frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev-frontend": "vite",
+    "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "dev-backend": "nodemon backend/index.js",
-    "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\"",
-    "migrate": "node backend/scripts/runMigrations.js"
+    "dev:all": "concurrently \"npm run dev:backend\" \"npm run dev\"",
+    "dev:backend": "cd backend && npm run dev"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
-    "@supabase/supabase-js": "^2.89.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
     "firebase": "^11.9.0",
-    "firebase-admin": "^13.4.0",
-    "pg": "^8.16.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-kakao-maps-sdk": "^1.1.27",
@@ -39,16 +32,14 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
-    "nodemon": "^3.1.10",
     "postcss": "^8.4.40",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
-    "supabase": "^2.15.8",
     "tailwindcss": "^3.4.7",
     "vite": "^5.2.0",
     "vite-plugin-eslint": "^1.8.1"
   },
-  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "description": "Korean Cosmetics TINT - Frontend",
   "keywords": [],
   "author": "",
   "license": "ISC"
