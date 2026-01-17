@@ -1,13 +1,7 @@
 import admin from "firebase-admin";
-import { readFile } from "fs/promises";
 
 const serviceAccount = JSON.parse(
-  await readFile(
-    new URL(
-      "config/tint-2d2cc-firebase-adminsdk-fbsvc-72bb584cbe.json",
-      import.meta.url,
-    ),
-  ),
+  process.env.FIREBASE_SERVICE_ACCOUNT
 );
 
 admin.initializeApp({
