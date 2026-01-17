@@ -1,0 +1,31 @@
+{
+  "articles": [
+    {
+      "id": 1,
+      "main_image_src": "/images/blog3.jpg",
+      "images": ["/images/blog3.jpg"],
+      "title": "Why Korean Skincare Is Loved Worldwide",
+      "subtitle": "Massive popularity of Korean skincare across the globe due to its unique philosophy and impressive results.",
+      "slug": "why-korean-skincare-is-loved-worldwide",
+      "content": "Korean skincare has gained massive popularity across the globe due to its unique philosophy and impressive results. At the core of Korean beauty lies the idea of prevention rather than correction. Instead of masking skin problems, Korean skincare focuses on maintaining healthy, hydrated, and balanced skin from an early age.\n\nOne of the key reasons for its success is the use of innovative ingredients such as snail mucin, centella asiatica, fermented extracts, and propolis. These components are known for their soothing, repairing, and anti-aging properties. Korean brands invest heavily in research and development, often being years ahead of global trends.\n\nAnother important factor is the famous multi-step skincare routine. While it may look complex, it allows products to work gently and effectively without overwhelming the skin. This layered approach ensures deep hydration, improved texture, and a natural glow. Combined with affordable pricing and elegant packaging, Korean skincare continues to win the trust of consumers worldwide."
+    },
+    {
+      "id": 2,
+      "main_image_src": "/images/blog1.jpeg",
+      "images": ["/images/blog1.jpeg"],
+      "title": "Key Ingredients That Define Korean Cosmetics",
+      "subtitle": "Carefully selected ingredients that blend traditional herbal medicine with modern science.",
+      "slug": "key-ingredients-that-define-korean-cosmetics",
+      "content": "Korean cosmetics are known for their carefully selected ingredients that blend traditional herbal medicine with modern science. Many formulations are inspired by ancient Korean beauty rituals, updated with advanced dermatological research.\n\nCentella Asiatica is one of the most iconic ingredients, valued for its calming and healing properties. It is especially popular in products designed for sensitive or acne-prone skin. Another standout ingredient is snail mucin, which helps repair the skin barrier, improve elasticity, and boost hydration.\n\nFermented ingredients also play a major role in Korean skincare. Fermentation increases the effectiveness of active components, allowing better absorption and enhanced benefits. Ingredients like rice ferment, soybean ferment, and yeast extracts help brighten the skin and improve overall tone. This thoughtful combination of nature and technology makes Korean cosmetics both effective and gentle."
+    },
+    {
+      "id": 3,
+      "main_image_src": "/images/blog4.webp",
+      "images": ["/images/blog4.webp"],
+      "title": "How to Build a Korean Skincare Routine",
+      "subtitle": "A simple routine that focuses on hydration, protection, and prevention.",
+      "slug": "how-to-build-a-korean-skincare-routine",
+      "content": "Building a Korean skincare routine does not require using dozens of products. The key idea is to understand your skin type and choose steps that suit your needs. A basic routine usually starts with gentle cleansing, often using a double cleanse method that includes an oil cleanser followed by a water-based cleanser.\n\nAfter cleansing, hydrating steps such as toner and essence help prepare the skin for treatment products. Serums and ampoules target specific concerns like pigmentation, wrinkles, or dehydration. Moisturizer then seals in all the benefits, while sunscreen during the day protects the skin from premature aging.\n\nConsistency is more important than the number of steps. Korean skincare emphasizes listening to your skin and adjusting your routine accordingly. With regular care and well-chosen products, this approach helps achieve healthy, radiant skin over time."
+    }
+  ]
+}
