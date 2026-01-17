@@ -17,21 +17,26 @@ export const isLocalhost = (hostname) => {
 };
 
 const getApiBaseUrl = () => {
-  if (import.meta.env.VITE_API_BASE_URL) {
-    return import.meta.env.VITE_API_BASE_URL;
-  }
-
-  const hostname = getCurrentHostname();
-
-  if (isLocalhost(hostname)) {
-    return "http://localhost:4000";
-  }
-
-  const apiUrl = `http://${hostname}:4000`;
-
-
-  return apiUrl;
+  return import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
 };
+
+
+// const getApiBaseUrl = () => {
+//   if (import.meta.env.VITE_API_BASE_URL) {
+//     return import.meta.env.VITE_API_BASE_URL;
+//   }
+
+//   const hostname = getCurrentHostname();
+
+//   if (isLocalhost(hostname)) {
+//     return "http://localhost:4000";
+//   }
+
+//   const apiUrl = `http://${hostname}:4000`;
+
+
+//   return apiUrl;
+// };
 
 export const API_BASE_URL = getApiBaseUrl();
 
