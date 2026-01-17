@@ -60,16 +60,21 @@ export async function findAllProducts(limit = 200) {
 }
 
 export async function findAllBrands() {
-  const res = await db.query(`
-    SELECT brand
-    FROM public.products_with_images
-    WHERE brand IS NOT NULL
-    GROUP BY brand
-    ORDER BY LOWER(brand)
-  `);
-  
-  return res.rows.map((row) => row.brand);
+  try {
+    const res = await db.query(`
+      SELECT brand
+      FROM public.products_with_images
+      WHERE brand IS NOT NULL
+      GROUP BY brand
+      ORDER BY LOWER(brand)
+    `);
+    return res.rows.map((row) => row.brand);
+  } catch (err) {
+    console.error("❌ ERROR IN findAllBrands:", err);
+    throw err;
+  }
 }
+
 
 export async function findProductsByCategory(category, page = 1, limit = 12) {
   return findProductsWithPagination(
