@@ -17,19 +17,19 @@ import HeaderSliderImage from "./HeaderSliderImage";
 function HeaderSlider() {
   const images = [
     {
-      src: "src/assets/images/mainPage1.png",
+      src: "/images/mainPage1.png",
       alt: "Korean cosmetics banner",
     },
     {
-      src: "src/assets/images/mainPage2.png",
+      src: "/images/mainPage2.png",
       alt: "Korean cosmetics banner",
     },
     {
-      src: "src/assets/images/mainPage3.png",
+      src: "/images/mainPage3.png",
       alt: "Korean cosmetics banner",
     },
     {
-      src: "src/assets/images/mainPage4.png",
+      src: "/images/mainPage4.png",
       alt: "Korean cosmetics banner",
     },
   ];

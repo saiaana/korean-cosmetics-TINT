@@ -100,12 +100,12 @@ export default function SearchModal({ open, onClose }) {
                   className={styles.resultItem}
                 >
                   <ImageWithLoader
-                    src={image || "/src/assets/images/no-image.jpg"}
+                    src={image || "/images/no-image.jpg"}
                     alt={item.title}
                     className={styles.resultImage}
                     onError={(e) => {
-                      if (e.target.src !== "/src/assets/images/no-image.jpg") {
-                        e.target.src = "/src/assets/images/no-image.jpg";
+                      if (e.target.src !== "/images/no-image.jpg") {
+                        e.target.src = "/images/no-image.jpg";
                       }
                     }}
                   />

@@ -35,8 +35,8 @@ function Locations() {
   const avgLng =
     addressList.reduce((sum, loc) => sum + loc.lng, 0) / addressList.length;
 
-  const imageSrcColor = "src/assets/images/for_map.png";
-  const imageSrcGray = "src/assets/images/for_map_gray.png";
+  const imageSrcColor = "/images/for_map.png";
+  const imageSrcGray = "/images/for_map_gray.png";
 
   const [selectedAddressIndex, setSelectedAddressIndex] = useState(0);
 

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import noImage from "../../../assets/images/no-image.jpg";
 import { memo } from "react";
 import useCartItem from "../../../hooks/useCartItem";
 import { getProductUrl } from "../../../utils/products/getProductUrl";
@@ -92,12 +91,12 @@ function CartItem({
       </label>
 
       <ImageWithLoader
-        src={mainImage || noImage}
+        src={mainImage || "/images/no-image.jpg"}
         alt={displayTitle}
         className={styles.image}
         onError={(e) => {
-          if (e.target.src !== noImage) {
-            e.target.src = noImage;
+          if (e.target.src !== "/images/no-image.jpg") {
+            e.target.src = "/images/no-image.jpg";
           }
         }}
       />

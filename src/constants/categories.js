@@ -1,31 +1,31 @@
 const CATEGORIES = [
   {
     name: "anti-age",
-    image: "/src/assets/images/anti-age.png",
+    image: "/images/anti-age.png",
   },
   {
     name: "moisturizers",
-    image: "/src/assets/images/moisturizers.png",
+    image: "/images/moisturizers.png",
   },
   {
     name: "foundation",
-    image: "/src/assets/images/foundation.png",
+    image: "/images/foundation.png",
   },
   {
     name: "makeup",
-    image: "/src/assets/images/makeup.png",
+    image: "/images/makeup.png",
   },
   {
     name: "cleanser",
-    image: "/src/assets/images/cleanser.png",
+    image: "/images/cleanser.png",
   },
   {
     name: "acne",
-    image: "/src/assets/images/acne.png",
+    image: "/images/acne.png",
   },
   {
     name: "hair",
-    image: "/src/assets/images/hair.png",
+    image: "/images/hair.png",
   },
 ];
 

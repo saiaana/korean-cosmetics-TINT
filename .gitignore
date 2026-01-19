@@ -29,7 +29,8 @@ dist-ssr
 .env.*.local
 
 backend/.env
-
+backend/cloudinary-map.json
+backend/local/
 
 supabase/
 supabase/config.toml

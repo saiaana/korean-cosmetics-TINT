@@ -160,6 +160,14 @@ npm run dev-backend
 npm run migrate
 ```
 
+## Scripts
+
+- upload-to-cloudinary.js — массовая загрузка изображений
+- update-catalog-images.js — обновление catalog_images.url
+- update-variant-images.js — обновление variant_images.url
+
+
+
 ## 📁 Структура проекта
 
 ```

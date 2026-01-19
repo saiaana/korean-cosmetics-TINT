@@ -2,7 +2,6 @@ import { Outlet, useMatches } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import ScrollToTop from "../ui/ScrollToTop";
-import imagePath from "../../../src/assets/images/mainPage4.png";
 
 function HeroLayout() {
   const matches = useMatches();
@@ -19,7 +18,7 @@ function HeroLayout() {
       <main className="relative flex-1 bg-gray-50 pt-14 md:pt-0">
         <div className="relative">
           <img
-            src={imagePath}
+            src="/images/mainPage4.png"
             alt=""
             className="h-[300px] w-full object-cover sm:h-[350px] md:h-[400px]"
           />
