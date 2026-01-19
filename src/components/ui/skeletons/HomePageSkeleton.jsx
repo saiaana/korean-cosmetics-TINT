@@ -30,7 +30,7 @@ export default function HomePageSkeleton() {
                 {Array.from({ length: 5 }).map((_, i) => (
                   <div
                     key={i}
-                    className="flex-shrink-0 w-[48%] min-[480px]:w-[44%] min-[640px]:w-[35%] min-[768px]:w-[30%] min-[1024px]:w-[23%] min-[1200px]:w-[23%]"
+                    className="flex-shrink-0 w-[calc((100%-12px)/2)] min-[480px]:w-[calc((100%-14px)/2.2)] min-[640px]:w-[calc((100%-16px)/2.8)] min-[768px]:w-[calc((100%-18px)/3.2)] min-[1024px]:w-[calc((100%-20px)/4)] min-[1200px]:w-[calc((100%-24px)/4)]"
                   >
                     <ProductCardSkeleton />
                   </div>
