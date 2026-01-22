@@ -37,8 +37,10 @@ export async function createOrder(req, res) {
 
 export async function getAllOrders(req, res) {
   try {
-    const orders = await orderService.getAllOrders();
-    res.json(orders);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const result = await orderService.getAllOrders(page, limit);
+    res.json(result);
   } catch (err) {
     res.status(err.status || 500).json({ error: err.message });
   }

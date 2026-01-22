@@ -47,8 +47,10 @@ export async function getUserOrders(firebaseUid) {
   return response.json();
 }
 
-export async function getAllOrders() {
-  const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.orders.all}`);
+export async function getAllOrders(page = 1, limit = 20) {
+  const response = await fetch(
+    `${API_BASE_URL}${API_ENDPOINTS.orders.all}?page=${page}&limit=${limit}`
+  );
 
   if (!response.ok) {
     const error = await response.json();

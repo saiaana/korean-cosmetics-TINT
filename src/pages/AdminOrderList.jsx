@@ -6,7 +6,6 @@ import { auth } from "../../firebase";
 import ROUTES from "../constants/routes";
 import Loading from "./Loading";
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
 
 const ORDER_STATUSES = [
   "created",
@@ -45,8 +44,9 @@ function AdmiOrderList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [updatingStatus, setUpdatingStatus] = useState({});
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const observerTarget = useRef(null);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const [total, setTotal] = useState(0);
 
   const navigate = useNavigate();
 
@@ -55,8 +55,10 @@ function AdmiOrderList() {
       setLoading(true);
       setError(null);
       try {
-        const data = await getAllOrders();
-        setOrders(data || []);
+        const data = await getAllOrders(page, 20);
+        setOrders(data.orders || []);
+        setHasMore(data.hasMore || false);
+        setTotal(data.total || 0);
       } catch (err) {
         setError(err.message || "Failed to fetch orders");
       } finally {
@@ -65,7 +67,7 @@ function AdmiOrderList() {
     };
 
     fetchOrders();
-  }, []);
+  }, [page]);
 
   const handleStatusChange = async (orderId, newStatus) => {
     if (!user) return;
@@ -213,6 +215,33 @@ function AdmiOrderList() {
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {!loading && orders.length > 0 && (
+        <div className="mt-6 flex items-center justify-between">
+          <div className="text-sm text-stone-600">
+            Showing {orders.length} of {total} orders
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setPage((prev) => Math.max(1, prev - 1))}
+              disabled={page === 1}
+              className="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 transition-colors hover:bg-stone-50 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              Previous
+            </button>
+            <span className="flex items-center px-4 py-2 text-sm text-stone-700">
+              Page {page}
+            </span>
+            <button
+              onClick={() => setPage((prev) => prev + 1)}
+              disabled={!hasMore}
+              className="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 transition-colors hover:bg-stone-50 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
         </div>
       )}
     </div>

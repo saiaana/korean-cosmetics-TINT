@@ -92,8 +92,8 @@ export async function createOrder({ firebaseUid, customer, items }) {
   }
 }
 
-export async function getAllOrders() {
-  return orderRepo.findAllOrders();
+export async function getAllOrders(page = 1, limit = 20) {
+  return orderRepo.findAllOrders(page, limit);
 }
 
 export async function updateOrderStatus(orderId, status) {
