@@ -39,3 +39,5 @@ supabase/migrations/
 supabase/seed.sql
 
 backend/config/*.json
+
+backend/secrets/*.json
