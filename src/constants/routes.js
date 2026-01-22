@@ -20,6 +20,7 @@ const ROUTES = {
   order: (orderId) => `/order/${orderId}`,
   orderItems: (orderId) => `/order/items/${orderId}`,
   brand: (slug) => `/brands/${slug}`,
+  admin: "/admin",
 };
 
 export default ROUTES;

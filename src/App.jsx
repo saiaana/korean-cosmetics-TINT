@@ -12,10 +12,14 @@ import BlogPost from "./pages/BlogPost";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Account from "./pages/Account";
+import AdmiOrderList from "./pages/AdminOrderList";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import NotFound from "./pages/NotFound";
 import StandardLayout from "./components/layout/StandardLayout";
 import HomepageLayout from "./components/layout/HomepageLayout";
+import AdminOrderInfo from "./pages/AdminOrderInfo";
+import Admin from "./pages/Admin";
+import AdminStats from "./pages/AdminStats";
 
 const router = createBrowserRouter([
   {
@@ -106,6 +110,23 @@ const router = createBrowserRouter([
       {
         path: "/account",
         element: <Account />,
+      },
+      {
+        path: "/admin/orders",
+        element: <AdmiOrderList />,
+
+      },
+      {
+        path: "/admin",
+        element: <Admin />,
+      },
+      {
+        path: "/admin/stats",
+        element: <AdminStats />,
+      },
+      {
+        path: "/admin/orders/:orderId",
+        element: <AdminOrderInfo />,
       },
       {
         path: "/order/confirmation/:orderId",

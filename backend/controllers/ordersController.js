@@ -34,3 +34,28 @@ export async function createOrder(req, res) {
     res.status(err.status || 500).json({ error: err.message });
   }
 }
+
+export async function getAllOrders(req, res) {
+  try {
+    const orders = await orderService.getAllOrders();
+    res.json(orders);
+  } catch (err) {
+    res.status(err.status || 500).json({ error: err.message });
+  }
+}
+
+export async function updateOrderStatus(req, res) {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+
+    if (!status) {
+      return res.status(400).json({ error: "Status is required" });
+    }
+
+    const order = await orderService.updateOrderStatus(orderId, status);
+    res.json(order);
+  } catch (err) {
+    res.status(err.status || 500).json({ error: err.message });
+  }
+}

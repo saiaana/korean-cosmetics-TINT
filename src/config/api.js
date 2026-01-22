@@ -43,8 +43,10 @@ export const API_BASE_URL = getApiBaseUrl();
 export const API_ENDPOINTS = {
   orders: {
     base: "/api/orders",
+    all: "/api/orders/all",
     byId: (id) => `/api/orders/${id}`,
     byUser: (firebaseUid) => `/api/orders/user/${firebaseUid}`,
+    updateStatus: (orderId) => `/api/orders/${orderId}/status`,
   },
   users: {
     base: "/api/users",
@@ -68,5 +70,9 @@ export const API_ENDPOINTS = {
     base: "/api/cart",
     items: (productId) => `/api/cart/${productId}`,
     merge: "/api/cart/merge",
+  },
+  stats: {
+    base: "/api/stats",
+    popularProducts: "/api/stats/popular-products",
   },
 };

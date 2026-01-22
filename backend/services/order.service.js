@@ -91,3 +91,31 @@ export async function createOrder({ firebaseUid, customer, items }) {
     client.release();
   }
 }
+
+export async function getAllOrders() {
+  return orderRepo.findAllOrders();
+}
+
+export async function updateOrderStatus(orderId, status) {
+  // Валидация статуса
+  const validStatuses = [
+    "created",
+    "pending",
+    "paid",
+    "cancelled",
+    "in progress",
+    "out for delivery",
+    "delivered",
+  ];
+
+  if (!validStatuses.includes(status)) {
+    throw { status: 400, message: "Invalid order status" };
+  }
+
+  const order = await orderRepo.updateOrderStatus(orderId, status);
+  if (!order) {
+    throw { status: 404, message: "Order not found" };
+  }
+
+  return order;
+}

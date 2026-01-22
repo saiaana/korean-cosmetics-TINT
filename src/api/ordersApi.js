@@ -46,3 +46,35 @@ export async function getUserOrders(firebaseUid) {
 
   return response.json();
 }
+
+export async function getAllOrders() {
+  const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.orders.all}`);
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to fetch orders");
+  }
+
+  return response.json();
+}
+
+export async function updateOrderStatus(orderId, status, token) {
+  const response = await fetch(
+    `${API_BASE_URL}${API_ENDPOINTS.orders.base}/${orderId}/status`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ status }),
+    },
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to update order status");
+  }
+
+  return response.json();
+}
