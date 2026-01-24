@@ -11,6 +11,7 @@ import {
   getProductsByCategory,
   getSimilarProducts,
   searchProducts,
+  createProduct,
 } from "../controllers/productsController.js";
 import { getProductVariants } from "../controllers/productVariantsController.js";
 
@@ -27,6 +28,7 @@ router.get("/similar", getSimilarProducts);
 router.get("/categoriesList", getCategoriesList);
 router.get("/slug/:slug", getProductBySlug);
 router.get("/:productId/variants", getProductVariants);
+router.post("/", createProduct);
 router.get("/", getAllProducts);
 
 export default router;

@@ -1,165 +1,134 @@
 import { API_BASE_URL, API_ENDPOINTS } from "../config/api";
-import { getProductSlug } from "../utils/products/getProductSlug";
 
 export async function getAllBrands() {
-  const response = await fetch(
-    `${API_BASE_URL}${API_ENDPOINTS.products.brands}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    },
-  );
+  const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.products.brands}`);
+
   if (!response.ok) {
     const error = await response.json();
     throw new Error(error.error || "Failed to fetch brands");
   }
+
   return response.json();
 }
 
-export async function getProductsByCategory(category, page, limit) {
+export async function getCategories() {
   const response = await fetch(
-    `${API_BASE_URL}${API_ENDPOINTS.products.categories(category)}?page=${page}&limit=${limit}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    },
+    `${API_BASE_URL}${API_ENDPOINTS.products.categoriesList}`
   );
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to fetch categories");
+  }
+
+  return response.json();
+}
+
+export async function getCategoriesList() {
+  return getCategories();
+}
+
+export async function getNewProducts(page = 1, limit = 12) {
+  const response = await fetch(
+    `${API_BASE_URL}${API_ENDPOINTS.products.new}?page=${page}&limit=${limit}`
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to fetch new products");
+  }
+
+  return response.json();
+}
+
+export async function getOnSaleProducts(page = 1, limit = 12) {
+  const response = await fetch(
+    `${API_BASE_URL}${API_ENDPOINTS.products.onSale}?page=${page}&limit=${limit}`
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to fetch on sale products");
+  }
+
+  return response.json();
+}
+
+export async function getBestsellerProducts(page = 1, limit = 12) {
+  const response = await fetch(
+    `${API_BASE_URL}${API_ENDPOINTS.products.bestsellers}?page=${page}&limit=${limit}`
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to fetch bestseller products");
+  }
+
+  return response.json();
+}
+
+export async function getProductsByCategory(category, page = 1, limit = 12) {
+  const response = await fetch(
+    `${API_BASE_URL}${API_ENDPOINTS.products.categories(category)}?page=${page}&limit=${limit}`
+  );
+
   if (!response.ok) {
     const error = await response.json();
     throw new Error(error.error || "Failed to fetch products by category");
   }
-  return response.json();
-}
-
-async function fetchPaginatedProducts(url, page, limit, errorMessage) {
-  const params = new URLSearchParams();
-  if (page) params.append("page", page.toString());
-  if (limit) params.append("limit", limit.toString());
-
-  const queryString = params.toString();
-  const fullUrl = queryString ? `${url}?${queryString}` : url;
-
-  const response = await fetch(fullUrl, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || errorMessage);
-  }
 
   return response.json();
 }
 
-export async function getProductsByBrand(brand, page, limit) {
-  return fetchPaginatedProducts(
-    `${API_BASE_URL}${API_ENDPOINTS.products.brand(brand)}`,
-    page,
-    limit,
-    "Failed to fetch products by brand",
-  );
-}
-
-export async function getNewProducts(page, limit) {
-  return fetchPaginatedProducts(
-    `${API_BASE_URL}${API_ENDPOINTS.products.new}`,
-    page,
-    limit,
-    "Failed to fetch new products",
-  );
-}
-
-export async function getOnSaleProducts(page, limit) {
-  return fetchPaginatedProducts(
-    `${API_BASE_URL}${API_ENDPOINTS.products.onSale}`,
-    page,
-    limit,
-    "Failed to fetch on sale products",
-  );
-}
-
-export async function getBestsellerProducts(page, limit) {
-  return fetchPaginatedProducts(
-    `${API_BASE_URL}${API_ENDPOINTS.products.bestsellers}`,
-    page,
-    limit,
-    "Failed to fetch bestseller products",
-  );
-}
-
-export async function getSimilarProducts({
-  category,
-  brand,
-  excludeId,
-  limit = 10,
-}) {
-  const params = new URLSearchParams();
-  if (category) {
-    params.append("category", category);
-  }
-  if (brand) {
-    params.append("brand", brand);
-  }
-  if (excludeId) {
-    params.append("excludeId", excludeId);
-  }
-  if (limit) {
-    params.append("limit", limit);
-  }
+export async function getProductsByBrand(brand, page = 1, limit = 12) {
   const response = await fetch(
-    `${API_BASE_URL}${API_ENDPOINTS.products.similar}?${params.toString()}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    },
+    `${API_BASE_URL}${API_ENDPOINTS.products.brand(brand)}?page=${page}&limit=${limit}`
   );
+
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(error.error || "Failed to fetch similar products");
+    throw new Error(error.error || "Failed to fetch products by brand");
   }
+
   return response.json();
 }
 
 export async function getProductBySlug(slug) {
   const response = await fetch(
-    `${API_BASE_URL}${API_ENDPOINTS.products.slug(slug)}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    },
+    `${API_BASE_URL}${API_ENDPOINTS.products.slug(slug)}`
   );
+
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(error.error || "Failed to fetch product by slug");
+    throw new Error(error.error || "Failed to fetch product");
   }
+
   return response.json();
 }
 
-export async function searchProducts(query, signal = null) {
-  if (!query || query.trim().length < 2) {
-    return [];
-  }
+export async function getSimilarProducts(category, brand, excludeId) {
+  const params = new URLSearchParams({
+    category,
+    brand,
+    excludeId: excludeId.toString(),
+  });
 
   const response = await fetch(
-    `${API_BASE_URL}${API_ENDPOINTS.products.search}?search=${encodeURIComponent(query)}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      signal,
-    },
+    `${API_BASE_URL}${API_ENDPOINTS.products.similar}?${params}`
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to fetch similar products");
+  }
+
+  return response.json();
+}
+
+export async function searchProducts(searchQuery, signal = null) {
+  const response = await fetch(
+    `${API_BASE_URL}${API_ENDPOINTS.products.search}?search=${encodeURIComponent(searchQuery)}`,
+    { signal }
   );
 
   if (!response.ok) {
@@ -167,44 +136,36 @@ export async function searchProducts(query, signal = null) {
     throw new Error(error.error || "Failed to search products");
   }
 
-  const data = await response.json();
-
-  return data.map((item) => ({
-    ...item,
-    slug: getProductSlug(item.id, item.title),
-  }));
+  return response.json();
 }
 
 export async function getProductVariants(productId) {
   const response = await fetch(
-    `${API_BASE_URL}${API_ENDPOINTS.products.variants(productId)}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    },
+    `${API_BASE_URL}${API_ENDPOINTS.products.variants(productId)}`
   );
+
   if (!response.ok) {
     const error = await response.json();
     throw new Error(error.error || "Failed to fetch product variants");
   }
+
   return response.json();
 }
 
-export async function getCategories() {
-  const response = await fetch(
-    `${API_BASE_URL}${API_ENDPOINTS.products.categoriesList}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+export async function createProduct(productData, token) {
+  const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.products.base}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-  );
+    body: JSON.stringify(productData),
+  });
+
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(error.error || "Failed to fetch categories");
+    throw new Error(error.error || "Failed to create product");
   }
+
   return response.json();
 }

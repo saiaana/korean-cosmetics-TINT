@@ -20,6 +20,7 @@ import HomepageLayout from "./components/layout/HomepageLayout";
 import AdminOrderInfo from "./pages/AdminOrderInfo";
 import Admin from "./pages/Admin";
 import AdminStats from "./pages/AdminStats";
+import AddProduct from "./pages/AddProduct";
 
 const router = createBrowserRouter([
   {
@@ -123,6 +124,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/stats",
         element: <AdminStats />,
+      },
+      {
+        path: "/admin/products/add",
+        element: <AddProduct />,
       },
       {
         path: "/admin/orders/:orderId",

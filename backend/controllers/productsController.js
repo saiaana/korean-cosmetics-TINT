@@ -143,3 +143,12 @@ export async function getCategoriesList(req, res) {
     res.status(err.status || 500).json({ error: err.message });
   }
 }
+
+export async function createProduct(req, res) {
+  try {
+    const product = await productsService.createProduct(req.body);
+    res.status(201).json(product);
+  } catch (err) {
+    res.status(err.status || 500).json({ error: err.message });
+  }
+}

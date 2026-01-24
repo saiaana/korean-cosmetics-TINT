@@ -202,3 +202,79 @@ export async function findCategoriesList() {
 
   return res.rows;
 }
+
+export async function createProduct(productData) {
+  const client = await db.connect();
+
+  try {
+    await client.query("BEGIN");
+
+    // Получаем максимальный ID и увеличиваем на 1
+    const maxIdResult = await client.query("SELECT COALESCE(MAX(id), 0) as max_id FROM catalog");
+    const productId = Number(maxIdResult.rows[0].max_id) + 1;
+
+    // Вставляем товар
+    const insertResult = await client.query(
+      `
+      INSERT INTO catalog (
+        id, title, brand, price, product_category, category_id,
+        additional_category, additional_category_id, product_type,
+        description, how_to_use, volume, ingridients, stock,
+        has_variants, on_sale, discount_percent, bestseller
+      ) VALUES (
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18
+      )
+      RETURNING *
+      `,
+      [
+        productId,
+        productData.title,
+        productData.brand,
+        productData.price, 
+        productData.product_category,
+        productData.category_id || null,
+        productData.additional_category || null,
+        productData.additional_category_id || null,
+        productData.product_type || null,
+        productData.description || null,
+        productData.how_to_use || null,
+        productData.volume || null,
+        productData.ingridients || null,
+        productData.has_variants ? null : (productData.stock || 0),
+        productData.has_variants || false,
+        productData.on_sale || false,
+        productData.discount_percent || null,
+        productData.bestseller || false,
+      ],
+    );
+
+    const product = insertResult.rows[0];
+
+    // Добавляем изображения, если они есть
+    if (productData.images && Array.isArray(productData.images) && productData.images.length > 0) {
+      for (let i = 0; i < productData.images.length; i++) {
+        const image = productData.images[i];
+        await client.query(
+          `
+          INSERT INTO catalog_images (catalog_id, url, is_main, position)
+          VALUES ($1, $2, $3, $4)
+          `,
+          [
+            productId,
+            image.url,
+            image.is_main || (i === 0), // Первое изображение - главное по умолчанию
+            image.position || i,
+          ],
+        );
+      }
+    }
+
+    await client.query("COMMIT");
+    return product;
+  } catch (err) {
+    await client.query("ROLLBACK");
+    throw err;
+  } finally {
+    client.release();
+  }
+}

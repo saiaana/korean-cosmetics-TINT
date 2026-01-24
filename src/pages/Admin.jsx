@@ -32,6 +32,13 @@ export default function Admin() {
       icon: "📊",
       color: "bg-green-50 hover:bg-green-100 border-green-200",
     },
+    {
+      title: "Add Product",
+      description: "Create a new product in the catalog",
+      link: "/admin/products/add",
+      icon: "➕",
+      color: "bg-purple-50 hover:bg-purple-100 border-purple-200",
+    },
   ];
 
   return (

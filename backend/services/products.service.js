@@ -38,3 +38,20 @@ export const getSimilarProducts = (category, brand, excludeId) =>
   productsRepo.findSimilarProducts(category, brand, excludeId);
 
 export const getCategoriesList = () => productsRepo.findCategoriesList();
+
+export const createProduct = (productData) => {
+  // Валидация обязательных полей
+  if (!productData.title || !productData.brand || !productData.price || !productData.product_category) {
+    throw { status: 400, message: "Missing required fields: title, brand, price, product_category" };
+  }
+
+  // Конвертируем цену в центы, если она передана в долларах
+  const priceInCents = typeof productData.price === 'number' 
+    ? Math.round(productData.price) 
+    : productData.price;
+
+  return productsRepo.createProduct({
+    ...productData,
+    price: priceInCents,
+  });
+};
