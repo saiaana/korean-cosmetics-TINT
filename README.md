@@ -1,5 +1,10 @@
 # TINT - Korean Cosmetics E-commerce Platform
 
+## 🌐 Other Languages
+
+- [Русский (Russian)](README.ru.md)
+- [한국어 (Korean)](README.kr.md)
+
 A modern Korean cosmetics e-commerce platform with full e-commerce functionality.
 
 ## 📋 Table of Contents
@@ -355,7 +360,3 @@ Pet project - TINT Korean Cosmetics Shop
 
 **Note:** To run the project, you need to configure all environment variables and database according to the [Configuration](#configuration) section. To access the admin panel, you need to create a user with `admin` or `manager` role in the database.
 
-## 🌐 Other Languages
-
-- [Русский (Russian)](README.ru.md)
-- [한국어 (Korean)](README.kr.md)
