@@ -22,6 +22,7 @@ import Admin from "./pages/Admin";
 import AdminStats from "./pages/AdminStats";
 import AddProduct from "./pages/AddProduct";
 import AdminProducts from "./pages/AdminProducts";
+import Contact from "./pages/Contact";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import { ROLE_PERMISSIONS } from "./constants/roles";
 
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
       {
         path: "/account",
         element: <Account />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
       {
         path: "/admin",

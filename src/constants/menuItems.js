@@ -7,4 +7,5 @@ export const MENU_ITEMS = [
   { label: "PROMOTIONS", path: ROUTES.promotions },
   { label: "BESTSELLERS", path: ROUTES.bestsellers },
   { label: "BLOG", path: ROUTES.blog },
+  { label: "CONTACT US", path: ROUTES.contact },
 ];

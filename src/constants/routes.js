@@ -9,6 +9,7 @@ const ROUTES = {
   bestsellers: "/bestsellers",
   blog: "/blog",
   categories: "/categories",
+  contact: "/contact",
   login: "/login",
   signup: "/signup",
   createOrder: "/order/new",
