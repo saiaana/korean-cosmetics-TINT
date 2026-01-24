@@ -1,8 +1,13 @@
 import { API_BASE_URL, API_ENDPOINTS } from "../config/api";
 
-export async function getPopularProducts(limit = 10) {
+export async function getPopularProducts(limit = 10, token) {
   const response = await fetch(
-    `${API_BASE_URL}${API_ENDPOINTS.stats.popularProducts}?limit=${limit}`
+    `${API_BASE_URL}${API_ENDPOINTS.stats.popularProducts}?limit=${limit}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
 
   if (!response.ok) {

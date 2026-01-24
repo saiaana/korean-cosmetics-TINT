@@ -7,6 +7,7 @@ import {
   updateOrderStatus,
 } from "../controllers/ordersController.js";
 import { authenticateToken } from "../middleware/auth.js";
+import { requireRole } from "../middleware/role.js";
 
 const router = express.Router();
 
@@ -14,9 +15,9 @@ const router = express.Router();
 router.get("/user/:firebaseUid", getOrdersByUser);
 router.post("/", authenticateToken, createOrder);
 
-// Admin routes (можно добавить проверку на админа позже)
-router.get("/all", getAllOrders);
-router.put("/:orderId/status", updateOrderStatus);
+// Admin routes - доступ для manager и admin
+router.get("/all", authenticateToken, requireRole(["admin", "manager"]), getAllOrders);
+router.put("/:orderId/status", authenticateToken, requireRole(["admin", "manager"]), updateOrderStatus);
 
 // General routes
 router.get("/:orderId", getOrderById);

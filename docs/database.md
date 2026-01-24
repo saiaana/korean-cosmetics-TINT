@@ -1,55 +1,56 @@
-# Документация базы данных
+# Database Documentation
 
-## Общая информация
+## General Information
 
-База данных: **PostgreSQL**
+Database: **PostgreSQL**
 
-Подключение настраивается через переменные окружения в `backend/.env`.
+Connection is configured via environment variables in `backend/.env`.
 
 ---
 
-## Таблицы
+## Tables
 
 ### users
 
-Хранит информацию о пользователях.
+Stores user information.
 
-**Структура:**
+**Structure:**
 
 ```sql
 CREATE TABLE users (
-  id UUID PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   firebase_uid VARCHAR(255) UNIQUE NOT NULL,
   email TEXT,
   first_name TEXT,
   last_name TEXT,
+  role VARCHAR(20) DEFAULT 'user' CHECK (role IN ('user', 'manager', 'admin')),
   created_at TIMESTAMP DEFAULT NOW()
 );
 ```
 
-**Связи:**
+**Relationships:**
 
-- `users.id` → `orders.user_id` (один ко многим)
-- `users.id` → `cart_items.user_id` (один ко многим)
+- `users.id` → `orders.user_id` (one to many)
+- `users.id` → `cart_items.user_id` (one to many)
 
-**Индексы:**
+**Indexes:**
 
-- `firebase_uid` - уникальный индекс
+- `firebase_uid` - unique index
 
 ---
 
 ### catalog
 
-Основная таблица товаров.
+Main products table.
 
-**Структура:**
+**Structure:**
 
 ```sql
 CREATE TABLE catalog (
   id BIGINT PRIMARY KEY,
   title TEXT,
   brand TEXT,
-  price SMALLINT,
+  price NUMERIC(10, 2),
   product_category TEXT,
   category_id BIGINT REFERENCES categories(id),
   additional_category TEXT,
@@ -58,36 +59,37 @@ CREATE TABLE catalog (
   description TEXT,
   how_to_use TEXT,
   volume TEXT,
-  ingridients TEXT,
+  ingredients TEXT,
   stock SMALLINT, -- NULL if has_variants is true
   has_variants BOOLEAN DEFAULT false,
   on_sale BOOLEAN DEFAULT false,
   discount_percent INTEGER DEFAULT NULL,
   bestseller BOOLEAN DEFAULT false,
+  is_active BOOLEAN DEFAULT true,
   created_at TIMESTAMP DEFAULT NOW()
 );
 ```
 
-**Связи:**
+**Relationships:**
 
-- `catalog.id` → `catalog_images.catalog_id` (один ко многим)
-- `catalog.id` → `product_variants.product_id` (один ко многим)
-- `catalog.id` → `cart_items.product_id` (один ко многим)
-- `catalog.id` → `order_items.product_id` (один ко многим)
-- `catalog.category_id` → `categories.id` (многие к одному)
-- `catalog.additional_category_id` → `categories.id` (многие к одному)
+- `catalog.id` → `catalog_images.catalog_id` (one to many)
+- `catalog.id` → `product_variants.product_id` (one to many)
+- `catalog.id` → `cart_items.product_id` (one to many)
+- `catalog.id` → `order_items.product_id` (one to many)
+- `catalog.category_id` → `categories.id` (many to one)
+- `catalog.additional_category_id` → `categories.id` (many to one)
 
-**Вычисляемые поля:**
+**Computed Fields:**
 
-- `finalPrice` - рассчитывается на фронтенде: `on_sale ? price * (1 - discount_percent / 100) : price`
+- `finalPrice` - calculated on frontend: `on_sale ? price * (1 - discount_percent / 100) : price`
 
 ---
 
 ### catalog_images
 
-Изображения товаров.
+Product images.
 
-**Структура:**
+**Structure:**
 
 ```sql
 CREATE TABLE catalog_images (
@@ -100,48 +102,49 @@ CREATE TABLE catalog_images (
 );
 ```
 
-**Связи:**
+**Relationships:**
 
-- `catalog_images.catalog_id` → `catalog.id` (многие к одному)
+- `catalog_images.catalog_id` → `catalog.id` (many to one)
 
-**Особенности:**
+**Features:**
 
-- `is_main = true` - главное изображение товара
-- `position` - порядок отображения
+- `is_main = true` - main product image
+- `position` - display order
 
 ---
 
 ### product_variants
 
-Варианты товаров (размеры, объемы и т.д.).
+Product variants (sizes, volumes, etc.).
 
-**Структура:**
+**Structure:**
 
 ```sql
 CREATE TABLE product_variants (
   id BIGINT PRIMARY KEY,
   product_id BIGINT NOT NULL REFERENCES catalog(id) ON DELETE CASCADE,
   variant_title TEXT,
-  variant_price INTEGER,
+  variant_price NUMERIC(10, 2),
   variant_stock INTEGER,
+  is_active BOOLEAN DEFAULT true,
   created_at TIMESTAMP DEFAULT NOW()
 );
 ```
 
-**Связи:**
+**Relationships:**
 
-- `product_variants.product_id` → `catalog.id` (многие к одному)
-- `product_variants.id` → `variant_images.variant_id` (один ко многим)
-- `product_variants.id` → `cart_items.variant_id` (один ко многим)
-- `product_variants.id` → `order_items.variant_id` (один ко многим)
+- `product_variants.product_id` → `catalog.id` (many to one)
+- `product_variants.id` → `variant_images.variant_id` (one to many)
+- `product_variants.id` → `cart_items.variant_id` (one to many)
+- `product_variants.id` → `order_items.variant_id` (one to many)
 
 ---
 
 ### variant_images
 
-Изображения вариантов товаров.
+Product variant images.
 
-**Структура:**
+**Structure:**
 
 ```sql
 CREATE TABLE variant_images (
@@ -154,17 +157,17 @@ CREATE TABLE variant_images (
 );
 ```
 
-**Связи:**
+**Relationships:**
 
-- `variant_images.variant_id` → `product_variants.id` (многие к одному)
+- `variant_images.variant_id` → `product_variants.id` (many to one)
 
 ---
 
 ### categories
 
-Категории товаров.
+Product categories.
 
-**Структура:**
+**Structure:**
 
 ```sql
 CREATE TABLE categories (
@@ -178,9 +181,9 @@ CREATE TABLE categories (
 
 ### cart_items
 
-Элементы корзины пользователей.
+User cart items.
 
-**Структура:**
+**Structure:**
 
 ```sql
 CREATE TABLE cart_items (
@@ -194,24 +197,24 @@ CREATE TABLE cart_items (
 );
 ```
 
-**Связи:**
+**Relationships:**
 
-- `cart_items.user_id` → `users.id` (многие к одному)
-- `cart_items.product_id` → `catalog.id` (многие к одному)
-- `cart_items.variant_id` → `product_variants.id` (многие к одному, опционально)
+- `cart_items.user_id` → `users.id` (many to one)
+- `cart_items.product_id` → `catalog.id` (many to one)
+- `cart_items.variant_id` → `product_variants.id` (many to one, optional)
 
-**Особенности:**
+**Features:**
 
-- Уникальная комбинация `(user_id, product_id, variant_id)` предотвращает дубликаты
-- Если `variant_id IS NULL` - товар без варианта
+- Unique combination `(user_id, product_id, variant_id)` prevents duplicates
+- If `variant_id IS NULL` - product without variant
 
 ---
 
 ### orders
 
-Заказы пользователей.
+User orders.
 
-**Структура:**
+**Structure:**
 
 ```sql
 CREATE TYPE order_status_enum AS ENUM (
@@ -227,90 +230,93 @@ CREATE TYPE order_status_enum AS ENUM (
 CREATE TABLE orders (
   id UUID PRIMARY KEY,
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  total INTEGER NOT NULL,
+  total NUMERIC(10, 2) NOT NULL,
   address TEXT,
   city TEXT,
   status order_status_enum DEFAULT 'created',
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
+  created_at TIMESTAMP DEFAULT NOW()
 );
 ```
 
-**Связи:**
+**Relationships:**
 
-- `orders.user_id` → `users.id` (многие к одному)
-- `orders.id` → `order_items.order_id` (один ко многим)
+- `orders.user_id` → `users.id` (many to one)
+- `orders.id` → `order_items.order_id` (one to many)
 
-**Статусы заказа:**
+**Order Statuses:**
 
-Enum `order_status_enum` со следующими значениями:
+Enum `order_status_enum` with the following values:
 
-- `created` - заказ создан
-- `pending` - заказ ожидает обработки
-- `paid` - заказ оплачен
-- `cancelled` - заказ отменен
-- `in progress` - заказ в обработке
-- `out for delivery` - заказ в доставке
-- `delivered` - заказ доставлен
+- `created` - order created
+- `pending` - order pending processing
+- `paid` - order paid
+- `cancelled` - order cancelled
+- `in progress` - order in progress
+- `out for delivery` - order out for delivery
+- `delivered` - order delivered
 
 ---
 
 ### order_items
 
-Элементы заказа.
+Order items.
 
-**Структура:**
+**Structure:**
 
 ```sql
 CREATE TABLE order_items (
-  id INTEGER PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   order_id UUID NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
   product_id BIGINT NOT NULL REFERENCES catalog(id) ON DELETE CASCADE,
   variant_id BIGINT REFERENCES product_variants(id) ON DELETE CASCADE,
   quantity INTEGER NOT NULL,
-  price BIGINT NOT NULL
+  price NUMERIC(10, 2) NOT NULL
 );
 ```
 
-**Связи:**
+**Relationships:**
 
-- `order_items.order_id` → `orders.id` (многие к одному)
-- `order_items.product_id` → `catalog.id` (многие к одному)
-- `order_items.variant_id` → `product_variants.id` (многие к одному, опционально)
+- `order_items.order_id` → `orders.id` (many to one)
+- `order_items.product_id` → `catalog.id` (many to one)
+- `order_items.variant_id` → `product_variants.id` (many to one, optional)
 
-**Особенности:**
+**Features:**
 
-- `price` - цена на момент заказа (сохраняется для истории)
-- `variant_id` может быть `NULL` для товаров без вариантов
+- `price` - price at the time of order (saved for history)
+- `variant_id` can be `NULL` for products without variants
 
 ---
 
-## Представления (Views)
+## Views
 
 ### products_with_images
 
-Представление для упрощения получения товаров с изображениями.
+View for simplifying product retrieval with images.
 
-**Использование:**
+**Usage:**
 
 ```sql
 SELECT * FROM products_with_images
 WHERE product_category = 'anti-age';
 ```
 
-**Описание:**
+**Description:**
 
-- Объединяет таблицы `catalog` и `catalog_images`
-- Агрегирует изображения в JSON массив
-- Используется в большинстве запросов товаров
+- Combines `catalog` and `catalog_images` tables
+- Aggregates images into JSON array
+- Used in most product queries
 
-**Примечание:** В коде может использоваться прямое обращение к таблицам `catalog` и `catalog_images` через JOIN.
+**Note:** Code may use direct access to `catalog` and `catalog_images` tables via JOIN.
+
+### admin_products_with_images
+
+View similar to `products_with_images` but includes `is_active` column for admin use.
 
 ---
 
-## Индексы
+## Indexes
 
-Рекомендуемые индексы для оптимизации:
+Recommended indexes for optimization:
 
 ```sql
 -- users
@@ -321,6 +327,7 @@ CREATE INDEX idx_catalog_category ON catalog(product_category);
 CREATE INDEX idx_catalog_brand ON catalog(brand);
 CREATE INDEX idx_catalog_on_sale ON catalog(on_sale);
 CREATE INDEX idx_catalog_bestseller ON catalog(bestseller);
+CREATE INDEX idx_catalog_is_active ON catalog(is_active);
 
 -- catalog_images
 CREATE INDEX idx_catalog_images_catalog_id ON catalog_images(catalog_id);
@@ -328,6 +335,7 @@ CREATE INDEX idx_catalog_images_main ON catalog_images(catalog_id, is_main) WHER
 
 -- product_variants
 CREATE INDEX idx_variants_product_id ON product_variants(product_id);
+CREATE INDEX idx_variants_is_active ON product_variants(is_active);
 
 -- cart_items
 CREATE INDEX idx_cart_items_user_id ON cart_items(user_id);
@@ -339,26 +347,26 @@ CREATE INDEX idx_orders_created_at ON orders(created_at DESC);
 
 ---
 
-## Транзакции
+## Transactions
 
-### Создание заказа
+### Creating Order
 
-Создание заказа выполняется в транзакции:
+Order creation is performed in a transaction:
 
 ```sql
 BEGIN;
-  -- 1. Получение/создание пользователя
-  -- 2. Создание заказа
+  -- 1. Get/create user
+  -- 2. Create order
   INSERT INTO orders ...;
-  -- 3. Создание элементов заказа
+  -- 3. Create order items
   INSERT INTO order_items ...;
-  -- 4. Обновление stock
+  -- 4. Update stock
   UPDATE catalog SET stock = stock - quantity WHERE id = ...;
   UPDATE product_variants SET variant_stock = variant_stock - quantity WHERE id = ...;
 COMMIT;
 ```
 
-**Откат при ошибке:**
+**Rollback on error:**
 
 ```sql
 ROLLBACK;
@@ -366,13 +374,13 @@ ROLLBACK;
 
 ---
 
-## Управление stock (остатками)
+## Stock Management
 
-### Уменьшение stock после заказа
+### Decreasing Stock After Order
 
-При создании заказа автоматически уменьшается stock товаров/вариантов:
+When creating an order, stock of products/variants is automatically decreased:
 
-**Для товара без варианта:**
+**For product without variant:**
 
 ```sql
 UPDATE catalog
@@ -380,7 +388,7 @@ SET stock = GREATEST(0, stock - $1)
 WHERE id = $2;
 ```
 
-**Для варианта товара:**
+**For product variant:**
 
 ```sql
 UPDATE product_variants
@@ -388,25 +396,25 @@ SET variant_stock = GREATEST(0, variant_stock - $1)
 WHERE id = $2;
 ```
 
-`GREATEST(0, ...)` предотвращает отрицательные значения stock.
+`GREATEST(0, ...)` prevents negative stock values.
 
 ---
 
-## Миграции
+## Migrations
 
-Миграции выполняются через скрипт:
+Migrations are executed via script:
 
 ```bash
 npm run migrate
 ```
 
-**Файл:** `backend/scripts/runMigrations.js`
+**File:** `backend/scripts/runMigrations.js`
 
 ---
 
-## Резервное копирование
+## Backup
 
-Рекомендуется настроить автоматическое резервное копирование базы данных:
+It is recommended to set up automatic database backup:
 
 ```bash
 pg_dump -U username -d database_name > backup.sql
@@ -414,11 +422,11 @@ pg_dump -U username -d database_name > backup.sql
 
 ---
 
-## Оптимизация
+## Optimization
 
 ### Connection Pooling
 
-Используется connection pooling через `pg.Pool`:
+Connection pooling is used via `pg.Pool`:
 
 ```javascript
 const pool = new Pool({
@@ -430,9 +438,9 @@ const pool = new Pool({
 });
 ```
 
-### Запросы с пагинацией
+### Paginated Queries
 
-Все списки товаров используют пагинацию:
+All product lists use pagination:
 
 ```sql
 SELECT * FROM catalog
@@ -441,9 +449,9 @@ ORDER BY id DESC
 LIMIT $2 OFFSET $3;
 ```
 
-### Агрегация изображений
+### Image Aggregation
 
-Изображения агрегируются через `json_agg`:
+Images are aggregated via `json_agg`:
 
 ```sql
 json_agg(
@@ -454,7 +462,7 @@ json_agg(
 
 ---
 
-## Переменные окружения
+## Environment Variables
 
 ```env
 PG_HOST=localhost

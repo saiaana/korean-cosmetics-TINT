@@ -22,6 +22,8 @@ import Admin from "./pages/Admin";
 import AdminStats from "./pages/AdminStats";
 import AddProduct from "./pages/AddProduct";
 import AdminProducts from "./pages/AdminProducts";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import { ROLE_PERMISSIONS } from "./constants/roles";
 
 const router = createBrowserRouter([
   {
@@ -114,32 +116,56 @@ const router = createBrowserRouter([
         element: <Account />,
       },
       {
-        path: "/admin/orders",
-        element: <AdminOrderList />,
-      },
-      {
         path: "/admin",
         element: <Admin />,
       },
       {
-        path: "/admin/stats",
-        element: <AdminStats />,
-      },
-      {
-        path: "/admin/products",
-        element: <AdminProducts />,
-      },
-      {
-        path: "/admin/products/add",
-        element: <AddProduct />,
-      },
-      {
-        path: "/admin/products/:productId/edit",
-        element: <AddProduct />,
+        path: "/admin/orders",
+        element: (
+          <ProtectedRoute allowedRoles={ROLE_PERMISSIONS.ORDERS_MANAGEMENT}>
+            <AdminOrderList />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/admin/orders/:orderId",
-        element: <AdminOrderInfo />,
+        element: (
+          <ProtectedRoute allowedRoles={ROLE_PERMISSIONS.ORDERS_MANAGEMENT}>
+            <AdminOrderInfo />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin/stats",
+        element: (
+          <ProtectedRoute allowedRoles={ROLE_PERMISSIONS.STATISTICS}>
+            <AdminStats />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin/products",
+        element: (
+          <ProtectedRoute allowedRoles={ROLE_PERMISSIONS.PRODUCTS_MANAGEMENT}>
+            <AdminProducts />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin/products/add",
+        element: (
+          <ProtectedRoute allowedRoles={ROLE_PERMISSIONS.ADD_PRODUCT}>
+            <AddProduct />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin/products/:productId/edit",
+        element: (
+          <ProtectedRoute allowedRoles={ROLE_PERMISSIONS.PRODUCTS_MANAGEMENT}>
+            <AddProduct />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/order/confirmation/:orderId",

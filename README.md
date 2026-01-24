@@ -1,102 +1,111 @@
-# TINT - Интернет-магазин корейской косметики
+# TINT - Korean Cosmetics E-commerce Platform
 
-Современный интернет-магазин корейской косметики с полным функционалом электронной коммерции.
+A modern Korean cosmetics e-commerce platform with full e-commerce functionality.
 
-## 📋 Содержание
+## 📋 Table of Contents
 
-- [Описание](#описание)
-- [Технологии](#технологии)
-- [Функциональность](#функциональность)
-- [Установка](#установка)
-- [Настройка](#настройка)
-- [Запуск проекта](#запуск-проекта)
-- [Структура проекта](#структура-проекта)
+- [Description](#description)
+- [Technologies](#technologies)
+- [Features](#features)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Running the Project](#running-the-project)
+- [Project Structure](#project-structure)
 - [API](#api)
-- [Разработка](#разработка)
+- [Development](#development)
 
-## 📖 Описание
+## 📖 Description
 
-TINT - это полнофункциональный интернет-магазин корейской косметики. Проект включает в себя фронтенд на React и бэкенд на Node.js с Express.
+TINT is a full-featured Korean cosmetics e-commerce platform. The project includes a React frontend and a Node.js backend with Express.
 
-### Основные возможности:
+### Key Features:
 
-- 🛍️ Каталог товаров с фильтрацией по категориям и брендам
-- 🔍 Поиск товаров
-- 🛒 Корзина покупок (для авторизованных и гостевых пользователей)
-- 👤 Система аутентификации и авторизации
-- 📦 Оформление заказа
-- 📝 Блог о корейской косметике
-- 📱 Адаптивный дизайн
-- ⚡ Оптимизация производительности (lazy loading, пагинация)
+- 🛍️ Product catalog with filtering by categories and brands
+- 🔍 Product search
+- 🛒 Shopping cart (for authenticated and guest users)
+- 👤 Authentication and authorization system with roles (user, manager, admin)
+- 📦 Order placement
+- 📝 Blog about Korean cosmetics
+- 🛡️ Admin panel with role-based access control
+- 📊 Sales statistics for administrators
+- 🎛️ Product and order management
+- 📱 Responsive design
+- ⚡ Performance optimization (lazy loading, pagination)
 
-## 🛠 Технологии
+## 🛠 Technologies
 
 ### Frontend:
-- **React 18** - UI библиотека
-- **Vite** - сборщик и dev-сервер
-- **Redux Toolkit** - управление состоянием
-- **React Router** - маршрутизация
-- **Tailwind CSS** - стилизация
-- **Swiper** - слайдеры
-- **Firebase** - аутентификация
+- **React 18** - UI library
+- **Vite** - build tool and dev server
+- **Redux Toolkit** - state management
+- **React Router** - routing
+- **Tailwind CSS** - styling
+- **Swiper** - sliders
+- **Firebase** - authentication
 
 ### Backend:
-- **Node.js** - серверная платформа
-- **Express 5** - веб-фреймворк
-- **PostgreSQL** - база данных
-- **Firebase Admin SDK** - серверная аутентификация
+- **Node.js** - server platform
+- **Express 5** - web framework
+- **PostgreSQL** - database
+- **Firebase Admin SDK** - server-side authentication
 
-### Инструменты разработки:
-- **ESLint** - линтер кода
-- **Prettier** - форматирование кода
-- **Nodemon** - автоперезагрузка сервера
-- **Concurrently** - параллельный запуск frontend и backend
+### Development Tools:
+- **ESLint** - code linter
+- **Prettier** - code formatter
+- **Nodemon** - server auto-reload
+- **Concurrently** - parallel frontend and backend execution
 
-## ✨ Функциональность
+## ✨ Features
 
-### Для пользователей:
-- Просмотр каталога товаров
-- Фильтрация по категориям и брендам
-- Поиск товаров
-- Просмотр детальной информации о товаре
-- Добавление товаров в корзину
-- Управление количеством товаров в корзине, очистка корзины
-- Регистрация и авторизация
-- Оформление заказа
-- Просмотр истории заказов
-- Чтение блога о косметике
+### For Users:
+- Browse product catalog
+- Filter by categories and brands
+- Search products
+- View detailed product information
+- Add products to cart
+- Manage cart items quantity, clear cart
+- Registration and authentication
+- Place orders
+- View order history
+- Read cosmetics blog
 
-## 🚀 Установка
+### For Administrators and Managers:
+- 📊 **Statistics** (admin only) - view popular products for the last 12 months
+- 📦 **Order Management** (admin, manager) - view and update order statuses
+- 🛒 **Product Management** (admin only) - add, edit, and deactivate products
+- 🔐 **Access Control** - role-based system with permission checks on backend and frontend
 
-### Требования:
-- Node.js (версия 20 или выше)
+## 🚀 Installation
+
+### Requirements:
+- Node.js (version 20 or higher)
 - PostgreSQL
-- npm или yarn
+- npm or yarn
 
-### Шаги установки:
+### Installation Steps:
 
-1. **Клонируйте репозиторий:**
+1. **Clone the repository:**
 ```bash
-git clone <repository-url>
+git clone https://github.com/saiaana/korean-cosmetics-TINT
 cd korean-cosmetics-TINT
 ```
 
-2. **Установите зависимости:**
+2. **Install dependencies:**
 ```bash
 npm install
 ```
 
-3. **Настройте базу данных:**
-   - Создайте базу данных PostgreSQL
-   - Выполните миграции (если есть)
+3. **Set up the database:**
+   - Create a PostgreSQL database
+   - Run migrations (if any)
 
-## ⚙️ Настройка
+## ⚙️ Configuration
 
-### Переменные окружения
+### Environment Variables
 
-Создайте файл `.env` в корне проекта и файл `backend/.env` для бэкенда.
+Create a `.env` file in the project root and a `backend/.env` file for the backend.
 
-#### Frontend (.env в корне):
+#### Frontend (.env in root):
 ```env
 VITE_FIREBASE_API_KEY=your_firebase_api_key
 VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
@@ -116,198 +125,237 @@ PG_USER=your_postgres_user
 PG_PASSWORD=your_postgres_password
 PG_DATABASE=your_database_name
 
-SUPABASE_URL=your_supabase_url
-SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 ```
 
 ### Firebase Admin SDK
 
-Поместите файл сервисного аккаунта Firebase в `backend/config/` или настройте использование переменных окружения.
+Place the Firebase service account file in `backend/config/` or configure environment variables.
 
-## 🏃 Запуск проекта
+## 🏃 Running the Project
 
-### Режим разработки:
+### Development Mode:
 
-Запуск frontend и backend одновременно:
+Run frontend and backend simultaneously:
 ```bash
 npm run dev
 ```
 
-Или отдельно:
+Or separately:
 ```bash
-# Frontend (порт 5174)
+# Frontend (port 5174)
 npm run dev-frontend
 
-# Backend (порт 4000)
+# Backend (port 4000)
 npm run dev-backend
 ```
 
-### Production сборка:
+### Production Build:
 
-1. **Соберите frontend:**
+1. **Build frontend:**
 ```bash
 npm run build
 ```
 
-2. **Запустите backend:**
+2. **Run backend:**
 ```bash
 npm run dev-backend
-# или используйте PM2 для production
+# or use PM2 for production
 ```
 
-### Миграции базы данных:
+### Database Migrations:
 ```bash
 npm run migrate
 ```
 
 ## Scripts
 
-- upload-to-cloudinary.js — массовая загрузка изображений
-- update-catalog-images.js — обновление catalog_images.url
-- update-variant-images.js — обновление variant_images.url
+- upload-to-cloudinary.js — bulk image upload
+- update-catalog-images.js — update catalog_images.url
+- update-variant-images.js — update variant_images.url
 
-
-
-## 📁 Структура проекта
+## 📁 Project Structure
 
 ```
 korean-cosmetics-TINT/
-├── backend/                 # Backend приложение
-│   ├── config/             # Конфигурационные файлы
-│   ├── constants/           # Константы
-│   ├── controllers/         # Контроллеры (обработка запросов)
-│   ├── middleware/          # Middleware (аутентификация и т.д.)
-│   ├── repositories/        # Репозитории (работа с БД)
-│   ├── routes/              # Маршруты API
-│   ├── scripts/             # Скрипты (миграции, синхронизация)
-│   ├── services/            # Бизнес-логика
-│   ├── db.js               # Подключение к БД
-│   ├── firebaseAdmin.js    # Инициализация Firebase Admin
-│   └── index.js            # Точка входа сервера
+├── backend/                 # Backend application
+│   ├── config/             # Configuration files
+│   ├── constants/           # Constants
+│   ├── controllers/         # Controllers (request handling)
+│   ├── middleware/          # Middleware (authentication, role checking)
+│   ├── repositories/        # Repositories (database operations)
+│   ├── routes/              # API routes
+│   ├── scripts/             # Scripts (migrations, synchronization)
+│   ├── services/            # Business logic
+│   ├── db.js               # Database connection
+│   ├── firebaseAdmin.js    # Firebase Admin initialization
+│   └── index.js            # Server entry point
 │
-├── src/                     # Frontend приложение
-│   ├── api/                 # API клиенты
-│   ├── assets/              # Статические ресурсы
-│   ├── auth/                # Логика аутентификации
-│   ├── components/          # React компоненты
-│   │   ├── common/          # Общие компоненты
-│   │   ├── layout/         # Компоненты макета
-│   │   ├── pages/          # Компоненты страниц
-│   │   └── ui/             # UI компоненты
-│   ├── config/              # Конфигурация
-│   ├── constants/           # Константы
-│   ├── data/                # Статические данные
-│   ├── features/            # Feature-модули (FSD)
-│   ├── hooks/               # Custom hooks
-│   ├── pages/               # Страницы приложения
+├── src/                     # Frontend application
+│   ├── api/                 # API clients
+│   ├── assets/              # Static resources
+│   ├── auth/                # Authentication logic
+│   ├── components/          # React components
+│   │   ├── common/          # Common components (ProtectedRoute, etc.)
+│   │   ├── layout/         # Layout components
+│   │   ├── pages/          # Page components
+│   │   │   └── admin/      # Admin components (tables)
+│   │   └── ui/             # UI components
+│   ├── config/              # Configuration
+│   ├── constants/           # Constants (roles, admin menu)
+│   ├── data/                # Static data
+│   ├── features/            # Feature modules (FSD)
+│   ├── hooks/               # Custom hooks (useAdminOrder, useAdminProducts, useAdminStats)
+│   ├── pages/               # Application pages
 │   ├── store/               # Redux store
-│   ├── utils/               # Утилиты
-│   ├── App.jsx              # Главный компонент
-│   └── main.jsx             # Точка входа
+│   ├── utils/               # Utilities
+│   ├── App.jsx              # Main component
+│   └── main.jsx             # Entry point
 │
-├── public/                   # Публичные файлы
-├── package.json              # Зависимости и скрипты
-├── vite.config.js           # Конфигурация Vite
-└── tailwind.config.js       # Конфигурация Tailwind
+├── public/                   # Public files
+├── package.json              # Dependencies and scripts
+├── vite.config.js           # Vite configuration
+└── tailwind.config.js       # Tailwind configuration
 ```
 
 ## 🔌 API
 
-### Основные эндпоинты:
+### Main Endpoints:
 
-#### Товары:
-- `GET /api/products/categoriesList` - Список категорий
-- `GET /api/products/categories/:category` - Товары по категории
-- `GET /api/products/brands` - Список брендов
-- `GET /api/products/brands/:brand` - Товары по бренду
-- `GET /api/products/new` - Новые товары
-- `GET /api/products/on-sale` - Товары со скидкой
-- `GET /api/products/bestsellers` - Хиты продаж
-- `GET /api/products/slug/:slug` - Товар по slug
-- `GET /api/products/search` - Поиск товаров
+#### Products:
+- `GET /api/products/categoriesList` - List categories
+- `GET /api/products/categories/:category` - Products by category
+- `GET /api/products/brands` - List brands
+- `GET /api/products/brands/:brand` - Products by brand
+- `GET /api/products/new` - New products
+- `GET /api/products/on-sale` - Products on sale
+- `GET /api/products/bestsellers` - Bestsellers
+- `GET /api/products/slug/:slug` - Product by slug
+- `GET /api/products/search` - Search products
 
-#### Корзина:
-- `GET /api/cart` - Получить корзину
-- `POST /api/cart` - Добавить товар в корзину
-- `PUT /api/cart/:productId` - Обновить товар в корзине
-- `DELETE /api/cart/:productId` - Удалить товар из корзины
-- `DELETE /api/cart` - Очистить корзину
-- `POST /api/cart/merge` - Объединить гостевую корзину с пользовательской
+#### Cart:
+- `GET /api/cart` - Get cart
+- `POST /api/cart` - Add item to cart
+- `PUT /api/cart/:productId` - Update cart item
+- `DELETE /api/cart/:productId` - Remove item from cart
+- `DELETE /api/cart` - Clear cart
+- `POST /api/cart/merge` - Merge guest cart with user cart
 
-#### Заказы (требует аутентификации):
-- `POST /api/orders` - Создать заказ
-- `GET /api/orders/user/:firebaseUid` - Заказы пользователя
-- `GET /api/orders/:orderId` - Детали заказа
+#### Orders:
+- `POST /api/orders` - Create order (requires authentication)
+- `GET /api/orders/user/:firebaseUid` - User orders
+- `GET /api/orders/:orderId` - Order details
 
+#### Admin API (requires special roles):
+- `GET /api/orders/all` - All orders (admin, manager)
+- `PUT /api/orders/:orderId/status` - Update order status (admin, manager)
+- `GET /api/stats/popular-products` - Popular products (admin only)
+- `GET /api/products/admin/all` - All products for admin (admin only)
+- `GET /api/products/admin/:productId` - Product for editing (admin only)
+- `POST /api/products` - Create product (admin only)
+- `PUT /api/products/:productId` - Update product (admin only)
+- `PUT /api/products/:productId/active` - Change active status (admin only)
 
-#### Пользователи:
-- `POST /api/users` - Создать пользователя
-- `GET /api/users/me` - Текущий пользователь (требует аутентификации)
+#### Users:
+- `POST /api/users` - Create user
+- `GET /api/users/me` - Current user (requires authentication, returns role)
 
-## 💻 Разработка
+## 💻 Development
 
-### Архитектура:
+### Architecture:
 
-Проект использует **Feature-Sliced Design** подход для организации кода:
-- `features/` - изолированные фичи (cart, products)
-- `components/` - переиспользуемые компоненты
-- `pages/` - страницы приложения
-- `hooks/` - кастомные хуки
-- `utils/` - утилиты
+The project uses **Feature-Sliced Design** approach for code organization:
+- `features/` - isolated features (cart, products)
+- `components/` - reusable components
+- `pages/` - application pages
+- `hooks/` - custom hooks (including admin hooks: `useAdminOrder`, `useAdminProducts`, `useAdminStats`)
+- `utils/` - utilities
+- `constants/` - constants (roles, admin menu)
+
+**Component Separation Pattern:**
+Admin pages follow the pattern of separating logic and presentation:
+- `AdminPage.jsx` (page) → `useAdminHook.js` (logic) + `AdminTable.jsx` (presentation)
 
 ### State Management:
 
-- **Redux Toolkit** для глобального состояния
-- **createEntityAdapter** для нормализации данных
-- **createSelector** для мемоизации селекторов
+- **Redux Toolkit** for global state
+- **createEntityAdapter** for data normalization
+- **createSelector** for selector memoization
 
-### Стилизация:
+### Styling:
 
-- **Tailwind CSS** для стилей
-- Компоненты используют группированные стили в объектах для удобства поддержки
-- Адаптивный дизайн с breakpoints: sm, md, lg, xl
+- **Tailwind CSS** for styles
+- Components use grouped styles in objects for easier maintenance
+- Responsive design with breakpoints: sm, md, lg, xl
 
-### Оптимизация:
+### Optimization:
 
-- **Lazy loading** изображений через Intersection Observer
-- **Infinite scroll** для пагинации товаров
-- **Code splitting** через React.lazy()
-- **Skeleton screens** для улучшения UX
-- **Мемоизация** компонентов и селекторов
+- **Lazy loading** images via Intersection Observer
+- **Infinite scroll** for product pagination
+- **Code splitting** via React.lazy()
+- **Skeleton screens** for improved UX
+- **Memoization** of components and selectors
 
-### Линтинг и форматирование:
+### Linting and Formatting:
 
 ```bash
-# Проверка кода
+# Code check
 npm run lint
 
-# Форматирование (если настроен)
-npx prettier --write .
+# Formatting
+npm run format
+npm run format:check
 ```
 
-## 📝 Скрипты
+## 📝 Scripts
 
-- `npm run dev` - Запуск frontend и backend в режиме разработки
-- `npm run dev-frontend` - Запуск только frontend
-- `npm run dev-backend` - Запуск только backend
-- `npm run build` - Сборка frontend для production
-- `npm run preview` - Предпросмотр production сборки
-- `npm run lint` - Проверка кода линтером
-- `npm run migrate` - Выполнение миграций БД
+- `npm run dev` - Run frontend and backend in development mode
+- `npm run dev-frontend` - Run frontend only
+- `npm run dev-backend` - Run backend only
+- `npm run build` - Build frontend for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Lint code
+- `npm run format` - Format code with Prettier
+- `npm run format:check` - Check formatting without changes
+- `npm run migrate` - Run database migrations
 
-## 🔒 Безопасность
+## 🔒 Security
 
-- Аутентификация через Firebase
-- JWT токены для API запросов
-- CORS настройки для защиты API
-- Валидация входных данных
-- Защита от SQL инъекций через параметризованные запросы
+- **Authentication** via Firebase
+- **JWT tokens** for API requests
+- **Role-based system** (user, manager, admin) with permission checks
+- **Role checking middleware** on backend for all admin endpoints
+- **Route protection** on frontend via `ProtectedRoute` component
+- **CORS settings** for API protection
+- **Input validation** at controller and service levels
+- **SQL injection protection** via parameterized queries
+- **Transactions** for data integrity
 
+### Roles and Permissions:
 
-## 👥 Автор
+- **user** (default) - regular user, can place orders
+- **manager** - can manage orders (view, update statuses)
+- **admin** - full access: manage products, orders, view statistics
+
+**Important:** Real protection happens on the backend. Frontend is used only for UX (hiding/showing interface elements).
+
+## 📚 Documentation
+
+Detailed documentation is available in the `docs/` folder:
+
+- **[auth.md](docs/auth.md)** - Authentication, authorization and role system
+- **[api.md](docs/api.md)** - Complete API endpoints documentation
+- **[architecture.md](docs/architecture.md)** - Project architecture
+- **[database.md](docs/database.md)** - Database structure
+
+## 👥 Author
 
 Pet project - TINT Korean Cosmetics Shop
 
 ---
 
-**Примечание:** Для работы проекта необходимо настроить все переменные окружения и базу данных согласно разделу [Настройка](#настройка).
+**Note:** To run the project, you need to configure all environment variables and database according to the [Configuration](#configuration) section. To access the admin panel, you need to create a user with `admin` or `manager` role in the database.
+
+## 🌐 Other Languages
+
+- [Русский (Russian)](README.ru.md)
+- [한국어 (Korean)](README.kr.md)

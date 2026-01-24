@@ -1,7 +1,7 @@
 import * as userRepo from "../repositories/user.repository.js";
 
 export async function getCurrentUser(firebaseUid) {
-  const user = await userRepo.findUserByFirebaseUid(firebaseUid);
+  const user = await userRepo.findByFirebaseUid(firebaseUid);
 
   if (!user) {
     throw { status: 404, message: "User not found" };

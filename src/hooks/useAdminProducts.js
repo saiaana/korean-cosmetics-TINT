@@ -12,17 +12,24 @@ export function useAdminProducts(user) {
   
 
       const fetchProducts = useCallback(async () => {
+        if (!user) return;
+        
         setLoading(true);
         setError(null);
         try {
-          const data = await getAllAdminProducts();
+          const token = await auth.currentUser?.getIdToken();
+          if (!token) {
+            throw new Error("Authentication required");
+          }
+          
+          const data = await getAllAdminProducts(token);
           setAllProducts(data);
         } catch (err) {
           setError(err.message || "Failed to fetch products");
         } finally {
           setLoading(false);
         }
-      }, []);
+      }, [user]);
 
       useEffect(() => {
         fetchProducts();

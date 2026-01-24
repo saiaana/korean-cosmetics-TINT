@@ -1,0 +1,13 @@
+
+export const ROLES = {
+  USER: "user",
+  MANAGER: "manager",
+  ADMIN: "admin",
+};
+
+export const ROLE_PERMISSIONS = {
+  ORDERS_MANAGEMENT: [ROLES.ADMIN, ROLES.MANAGER],
+  STATISTICS: [ROLES.ADMIN],
+  PRODUCTS_MANAGEMENT: [ROLES.ADMIN],
+  ADD_PRODUCT: [ROLES.ADMIN],
+};

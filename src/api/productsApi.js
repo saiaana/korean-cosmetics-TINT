@@ -163,9 +163,14 @@ export async function getProductVariants(productId) {
   return response.json();
 }
 
-export async function getAllAdminProducts() {
+export async function getAllAdminProducts(token) {
   const response = await fetch(
-    `${API_BASE_URL}${API_ENDPOINTS.products.adminAll}`
+    `${API_BASE_URL}${API_ENDPOINTS.products.adminAll}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
 
   if (!response.ok) {
@@ -176,9 +181,14 @@ export async function getAllAdminProducts() {
   return response.json();
 }
 
-export async function getAdminProductById(productId) {
+export async function getAdminProductById(productId, token) {
   const response = await fetch(
-    `${API_BASE_URL}${API_ENDPOINTS.products.adminById(productId)}`
+    `${API_BASE_URL}${API_ENDPOINTS.products.adminById(productId)}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
 
   if (!response.ok) {

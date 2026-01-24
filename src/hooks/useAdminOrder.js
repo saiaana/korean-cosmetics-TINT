@@ -14,10 +14,17 @@ export function useAdminOrder(user) {
   
     useEffect(() => {
       const fetchOrders = async () => {
+        if (!user) return;
+        
         setLoading(true);
         setError(null);
         try {
-          const data = await getAllOrders(page, 20);
+          const token = await auth.currentUser?.getIdToken();
+          if (!token) {
+            throw new Error("Authentication required");
+          }
+          
+          const data = await getAllOrders(page, 20, token);
           setOrders(data.orders || []);
           setHasMore(data.hasMore || false);
           setTotal(data.total || 0);
@@ -29,7 +36,7 @@ export function useAdminOrder(user) {
       };
   
       fetchOrders();
-    }, [page]);
+    }, [page, user]);
 
     const handleStatusChange = async (orderId, newStatus) => {
         if (!user) return;

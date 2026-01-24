@@ -4,6 +4,7 @@ import ROUTES from "../constants/routes";
 import Loading from "./Loading";
 import AdminMenuItem from "../components/pages/admin/AdminMenuItem";
 import AdminQuickActions from "../components/pages/admin/AdminQuickActions";
+import { getAdminMenuItemsForRole } from "../constants/adminMenu";
 
 export default function Admin() {
   const user = useSelector((state) => state.auth.user);
@@ -17,36 +18,8 @@ export default function Admin() {
     return <Navigate to={ROUTES.login} replace />;
   }
 
-  const adminMenuItems = [
-    {
-      title: "Orders Management",
-      description: "View and manage all customer orders",
-      link: "/admin/orders",
-      icon: "📦",
-      color: "bg-blue-50 hover:bg-blue-100 border-blue-200",
-    },
-    {
-      title: "Statistics",
-      description: "View sales and performance analytics",
-      link: "/admin/stats",
-      icon: "📊",
-      color: "bg-green-50 hover:bg-green-100 border-green-200",
-    },
-    {
-      title: "Add Product",
-      description: "Create a new product in the catalog",
-      link: "/admin/products/add",
-      icon: "➕",
-      color: "bg-purple-50 hover:bg-purple-100 border-purple-200",
-    },
-    {
-      title: "Products Management",
-      description: "View and manage all products in the catalog",
-      link: "/admin/products",
-      icon: "🛒",
-      color: "bg-purple-50 hover:bg-purple-100 border-purple-200",
-    },
-  ];
+  const userRole = user?.role || "user";
+  const adminMenuItems = getAdminMenuItemsForRole(userRole);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
@@ -54,6 +27,7 @@ export default function Admin() {
         <h1 className="mb-2 text-3xl font-extrabold text-stone-800">
           Admin Panel
         </h1>
+
         <p className="text-stone-600">
           Manage your store, orders, and analytics
         </p>

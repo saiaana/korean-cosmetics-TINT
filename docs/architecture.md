@@ -1,71 +1,79 @@
-# Архитектура проекта TINT
+# TINT Project Architecture
 
-## Общая структура
+## General Structure
 
-Проект использует архитектуру **full-stack** приложения с разделением на фронтенд и бэкенд.
+The project uses a **full-stack** application architecture with separation between frontend and backend.
 
 ```
 korean-cosmetics-TINT/
-├── backend/          # Node.js + Express сервер
-├── src/              # React фронтенд приложение
-├── public/           # Статические файлы
-└── docs/             # Документация
+├── backend/          # Node.js + Express server
+├── src/              # React frontend application
+├── public/           # Static files
+└── docs/             # Documentation
 ```
 
-## Frontend архитектура
+## Frontend Architecture
 
-### Технологический стек
+### Technology Stack
 
-- **React 18** - UI библиотека
-- **Vite** - сборщик и dev-сервер
-- **Redux Toolkit** - управление глобальным состоянием
-- **React Router v6** - маршрутизация
-- **Tailwind CSS** - стилизация
+- **React 18** - UI library
+- **Vite** - build tool and dev server
+- **Redux Toolkit** - global state management
+- **React Router v6** - routing
+- **Tailwind CSS** - styling
 
-### Архитектурный подход: Feature-Sliced Design
+### Architectural Approach: Feature-Sliced Design
 
-Проект следует принципам **Feature-Sliced Design (FSD)** для организации кода:
+The project follows **Feature-Sliced Design (FSD)** principles for code organization:
 
 ```
 src/
-├── features/              # Изолированные фичи
-│   ├── cart/             # Логика корзины
-│   │   ├── lib/          # Утилиты (localStorage, редюсеры)
-│   │   ├── selectors/    # Redux селекторы
-│   │   └── cartAuth.js   # Авторизация для корзины
-│   └── products/         # Логика товаров
-├── components/           # Переиспользуемые компоненты
-│   ├── common/           # Общие компоненты
-│   ├── layout/           # Компоненты макета
-│   ├── pages/            # Компоненты страниц
-│   └── ui/               # UI компоненты
-├── pages/                # Страницы приложения
+├── features/              # Isolated features
+│   ├── cart/             # Cart logic
+│   │   ├── lib/          # Utilities (localStorage, reducers)
+│   │   ├── selectors/    # Redux selectors
+│   │   └── cartAuth.js   # Authorization for cart
+│   └── products/         # Products logic
+├── components/           # Reusable components
+│   ├── common/           # Common components
+│   ├── layout/           # Layout components
+│   ├── pages/            # Page components
+│   └── ui/               # UI components
+├── pages/                # Application pages
 ├── hooks/                # Custom React hooks
+│   ├── useAdminOrder.js   # Hook for order management (admin)
+│   ├── useAdminProducts.js # Hook for product management (admin)
+│   ├── useAdminStats.js   # Hook for statistics (admin)
+│   └── ...                # Other hooks
 ├── store/                # Redux store
-│   └── slices/           # Redux слайсы
-├── api/                  # API клиенты
-├── utils/                # Утилиты
-└── config/               # Конфигурация
+│   └── slices/           # Redux slices
+├── api/                  # API clients
+├── utils/                # Utilities
+├── constants/            # Constants
+│   ├── roles.js          # Role constants and permissions
+│   ├── adminMenu.js      # Admin menu configuration
+│   └── ...               # Other constants
+└── config/               # Configuration
 ```
 
-### Управление состоянием
+### State Management
 
-#### Redux Store структура:
+#### Redux Store Structure:
 
 ```javascript
 {
   auth: {
-    user: { uid, email, displayName } | null,
+    user: { uid, email, displayName, role } | null,
     initialized: boolean
   },
   products: {
-    products: { entities: {}, ids: [] },  // Нормализованные данные
+    products: { entities: {}, ids: [] },  // Normalized data
     productPage: { id, status, error },
     lists: {
       newProducts: { ids: [], page, limit, hasMore, status },
       onSaleProducts: { ids: [], page, limit, hasMore, status },
       productsByCategory: { ids: [], page, limit, hasMore, status },
-      // ... другие списки
+      // ... other lists
     },
     brands: { data: [], status, error },
     categories: { data: [], status, error }
@@ -78,142 +86,190 @@ src/
 }
 ```
 
-#### Особенности:
+#### Features:
 
-- **createEntityAdapter** - для нормализации данных товаров
-- **createSelector** - для мемоизации селекторов
-- **createAsyncThunk** - для асинхронных операций
+- **createEntityAdapter** - for product data normalization
+- **createSelector** - for selector memoization
+- **createAsyncThunk** - for async operations
 
-### Маршрутизация
+### Routing
 
-Приложение использует **React Router v6** с иерархической структурой маршрутов:
+The application uses **React Router v6** with hierarchical route structure:
 
 ```
-/                           # Главная страница
-├── /categories            # Список категорий
-├── /categories/:category  # Товары по категории
-├── /brands                # Список брендов
-├── /brands/:brand         # Товары по бренду
-├── /new-in                # Новые товары
-├── /promotions            # Товары со скидкой
-├── /bestsellers           # Хиты продаж
-├── /product/:slug         # Страница товара
-├── /cart                  # Корзина
-├── /order/new             # Оформление заказа
-├── /order/confirmation/:id # Страница подтвержденного заказа
-├── /blog                  # Блог
-├── /blog/:postName        # Статья блога
-├── /login                 # Вход
-├── /signup                # Регистрация
-└── /account               # Личный кабинет
+/                           # Home page
+├── /categories            # Category list
+├── /categories/:category  # Products by category
+├── /brands                # Brand list
+├── /brands/:brand         # Products by brand
+├── /new-in                # New products
+├── /promotions            # Products on sale
+├── /bestsellers           # Bestsellers
+├── /product/:slug         # Product page
+├── /cart                  # Cart
+├── /order/new             # Order placement
+├── /order/confirmation/:id # Confirmed order page
+├── /blog                  # Blog
+├── /blog/:postName        # Blog post
+├── /login                 # Login
+├── /signup                # Registration
+├── /account               # Account
+├── /admin                 # Admin panel (requires authentication)
+│   ├── /admin/orders      # Order management (admin, manager)
+│   ├── /admin/stats       # Statistics (admin only)
+│   ├── /admin/products    # Product management (admin only)
+│   └── /admin/products/add # Add product (admin only)
 ```
 
-### Компонентная структура
+### Component Structure
 
-#### Layout компоненты:
+#### Layout Components:
 
-- `HeroLayout` - макет с hero-секцией (главная, категории, бренды)
-- `StandardLayout` - стандартный макет (страница товара, аккаунт)
-- `HomepageLayout` - макет главной страницы
+- `HeroLayout` - layout with hero section (home, categories, brands)
+- `StandardLayout` - standard layout (product page, account)
+- `HomepageLayout` - home page layout
 
-#### UI компоненты:
+#### UI Components:
 
 - **Cards**: `ProductCard`, `BlogCard`
 - **Sliders**: `Slider`, `NewProductsSlider`, `PromotionsSlider`, `BestsellersSlider`
 - **Modals**: `SearchModal`, `ImageFullSizeModal`, `ConfirmModal`
 - **Forms**: `LoginForm`, `SignUpForm`, `InputField`
-- **Skeletons**: Loading states для улучшения UX
+- **Skeletons**: Loading states for improved UX
 
-### Оптимизация производительности
+#### Admin Components:
+
+- **Tables**: `AdminOrdersTable`, `AdminProductsTable`, `AdminStatsTable`
+- **Common**: `AdminMenuItem`, `AdminQuickActions`
+- **ProtectedRoute**: Component for role-based route protection
+
+#### Component Separation Pattern:
+
+Admin pages follow the pattern of separating logic and presentation:
+
+```
+AdminPage.jsx (page)
+  ├── useAdminHook.js (data fetching logic)
+  └── AdminTable.jsx (table component)
+```
+
+**Examples:**
+
+- `AdminOrderList` → `useAdminOrder` + `AdminOrdersTable`
+- `AdminProducts` → `useAdminProducts` + `AdminProductsTable`
+- `AdminStats` → `useAdminStats` + `AdminStatsTable`
+
+### Performance Optimization
 
 1. **Code Splitting**:
 
-   - React.lazy() для динамических импортов
-   - Lazy loading изображений через Intersection Observer
+   - React.lazy() for dynamic imports
+   - Lazy loading images via Intersection Observer
 
-2. **Мемоизация**:
+2. **Memoization**:
 
-   - `useMemo` для вычисляемых значений
-   - `useCallback` для функций
-   - `createSelector` для Redux селекторов
+   - `useMemo` for computed values
+   - `useCallback` for functions
+   - `createSelector` for Redux selectors
 
 3. **Lazy Loading**:
 
-   - Изображения с атрибутом `loading="lazy"`
-   - Intersection Observer для подгрузки контента
-   - Infinite scroll для пагинации
+   - Images with `loading="lazy"` attribute
+   - Intersection Observer for content loading
+   - Infinite scroll for pagination
 
-4. **Нормализация данных**:
-   - `createEntityAdapter` для избежания дублирования данных
-   - Централизованное хранилище товаров
+4. **Data Normalization**:
+   - `createEntityAdapter` to avoid data duplication
+   - Centralized product storage
 
-## Backend архитектура
+## Backend Architecture
 
-### Паттерн: MVC + Repository
+### Pattern: MVC + Repository
 
 ```
 backend/
-├── controllers/      # Обработка HTTP запросов
-├── services/         # Бизнес-логика
-├── repositories/     # Работа с БД
-├── routes/           # Маршруты API
+├── controllers/      # HTTP request handling
+├── services/         # Business logic
+├── repositories/     # Database operations
+├── routes/           # API routes
 ├── middleware/       # Middleware (auth, error handling)
-└── db.js            # Подключение к БД
+└── db.js            # Database connection
 ```
 
-### Слои архитектуры:
+### Architecture Layers:
 
-#### 1. Routes (Маршруты)
+#### 1. Routes
 
-Определяют endpoints API и привязывают их к контроллерам.
+Define API endpoints and bind them to controllers.
 
-#### 2. Controllers (Контроллеры)
+#### 2. Controllers
 
-- Получают HTTP запросы
-- Валидируют входные данные
-- Вызывают сервисы
-- Формируют HTTP ответы
+- Receive HTTP requests
+- Validate input data
+- Call services
+- Form HTTP responses
 
-#### 3. Services (Сервисы)
+#### 3. Services
 
-- Содержат бизнес-логику
-- Вызывают репозитории для работы с БД
-- Обрабатывают транзакции
-- Проводят валидацию на уровне бизнес-правил
+- Contain business logic
+- Call repositories for database operations
+- Handle transactions
+- Perform business rule validation
 
-#### 4. Repositories (Репозитории)
+#### 4. Repositories
 
-- Инкапсулируют работу с БД
-- Выполняют SQL запросы
-- Возвращают чистые данные
+- Encapsulate database work
+- Execute SQL queries
+- Return clean data
 
 ### Middleware
 
-#### Аутентификация:
+#### Authentication:
 
 ```javascript
 authenticateToken(req, res, next);
 ```
 
-- Проверяет JWT токен из заголовка `Authorization`
-- Верифицирует токен через Firebase Admin SDK
-- Добавляет данные пользователя в `req.user`
+- Checks JWT token from `Authorization` header
+- Verifies token through Firebase Admin SDK
+- Adds user data to `req.user`
 
-### Обработка ошибок
+#### Role Checking:
 
-Все ошибки обрабатываются в контроллерах:
+```javascript
+requireRole(["admin", "manager"])(req, res, next);
+```
+
+- Checks user role from database
+- Compares with allowed roles
+- Returns `403 Forbidden` if role doesn't match
+- Adds user data from DB to `req.userData`
+
+**Usage:**
+
+```javascript
+router.get("/admin/all", 
+  authenticateToken,           // First check token
+  requireRole(["admin"]),      // Then check role
+  getAllAdminProducts
+);
+```
+
+### Error Handling
+
+All errors are handled in controllers:
 
 ```javascript
 try {
-  // бизнес-логика
+  // business logic
 } catch (err) {
   res.status(err.status || 500).json({ error: err.message });
 }
 ```
 
-## Потоки данных
+## Data Flows
 
-### Получение товаров:
+### Getting Products:
 
 ```
 Frontend (Products.jsx)
@@ -231,7 +287,7 @@ PostgreSQL Database
 Frontend (normalize → store → render)
 ```
 
-### Оформление заказа:
+### Order Placement:
 
 ```
 Frontend (CreateOrder.jsx)
@@ -246,41 +302,45 @@ Service (order.service.js)
 Frontend (redirect to confirmation)
 ```
 
-## Интеграции
+## Integrations
 
 ### Firebase
 
-- **Frontend**: Аутентификация пользователей
-- **Backend**: Верификация JWT токенов
+- **Frontend**: User authentication
+- **Backend**: JWT token verification
 
 ### PostgreSQL
 
-- Основная база данных
-- Хранение товаров, заказов, пользователей, корзины
+- Main database
+- Storage for products, orders, users, cart
 
-## Безопасность
+## Security
 
-1. **JWT токены** для аутентификации API запросов
-2. **CORS** настройки для защиты от неавторизованных запросов
-3. **Параметризованные SQL запросы** для предотвращения SQL инъекций
-4. **Валидация данных** на уровне контроллеров и сервисов
-5. **Транзакции** для обеспечения целостности данных
+1. **JWT tokens** for API request authentication
+2. **Role checking** - middleware `requireRole` checks user role from DB on every request
+3. **Frontend route protection** - `ProtectedRoute` component prevents access to pages without required permissions
+4. **CORS** settings to protect against unauthorized requests
+5. **Parameterized SQL queries** to prevent SQL injection
+6. **Data validation** at controller and service levels
+7. **Transactions** for data integrity
 
-## Масштабируемость
+**Important:** Real protection happens on the backend. Frontend is used only for UX (hiding/showing interface elements).
+
+## Scalability
 
 ### Frontend:
 
-- Code splitting для уменьшения initial bundle size
-- Пагинация для больших списков товаров
-- Lazy loading для оптимизации загрузки
+- Code splitting to reduce initial bundle size
+- Pagination for large product lists
+- Lazy loading for loading optimization
 
 ### Backend:
 
-- Connection pooling для PostgreSQL
-- Асинхронная обработка запросов
-- Транзакции для критических операций
+- Connection pooling for PostgreSQL
+- Asynchronous request handling
+- Transactions for critical operations
 
-## Тестирование
+## Testing
 
-- ESLint для проверки кода
-- TypeScript типы (опционально через @types пакеты)
+- ESLint for code checking
+- TypeScript types (optional via @types packages)

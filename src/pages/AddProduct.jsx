@@ -70,12 +70,17 @@ function AddProduct() {
   }, []);
 
   useEffect(() => {
-    if (isEditMode && productId) {
+    if (isEditMode && productId && user) {
       const fetchProduct = async () => {
         setLoadingProduct(true);
         setError(null);
         try {
-          const product = await getAdminProductById(parseInt(productId, 10));
+          const token = await auth.currentUser?.getIdToken();
+          if (!token) {
+            throw new Error("Authentication required");
+          }
+          
+          const product = await getAdminProductById(parseInt(productId, 10), token);
 
           // Получаем варианты, если они есть
           let variants = [];
@@ -165,7 +170,7 @@ function AddProduct() {
       };
       fetchProduct();
     }
-  }, [isEditMode, productId]);
+  }, [isEditMode, productId, user]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;

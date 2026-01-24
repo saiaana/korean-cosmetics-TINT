@@ -2,7 +2,7 @@ import db from "../db.js";
 
 export async function findByFirebaseUid(firebaseUid, client = db) {
   const res = await client.query(
-    `SELECT id, first_name, last_name, email FROM users WHERE firebase_uid = $1`,
+    `SELECT id, first_name, last_name, email, role FROM users WHERE firebase_uid = $1`,
     [firebaseUid],
   );
 
@@ -31,8 +31,8 @@ export async function updateUserProfile(
 export async function createUser(firebaseUid, email, firstName, lastName) {
   await db.query(
     `
-    INSERT INTO users (firebase_uid, email, first_name, last_name)
-    VALUES ($1, $2, $3, $4)
+    INSERT INTO users (firebase_uid, email, first_name, last_name, role)
+    VALUES ($1, $2, $3, $4, 'user')
     `,
     [firebaseUid, email, firstName || null, lastName || null],
   );

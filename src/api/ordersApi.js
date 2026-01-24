@@ -47,9 +47,14 @@ export async function getUserOrders(firebaseUid) {
   return response.json();
 }
 
-export async function getAllOrders(page = 1, limit = 20) {
+export async function getAllOrders(page = 1, limit = 20, token) {
   const response = await fetch(
-    `${API_BASE_URL}${API_ENDPOINTS.orders.all}?page=${page}&limit=${limit}`
+    `${API_BASE_URL}${API_ENDPOINTS.orders.all}?page=${page}&limit=${limit}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
 
   if (!response.ok) {
