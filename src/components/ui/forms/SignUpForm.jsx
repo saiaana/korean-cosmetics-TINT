@@ -56,4 +56,3 @@ function SignUpForm({ formData, onChange }) {
 }
 
 export default SignUpForm;
-

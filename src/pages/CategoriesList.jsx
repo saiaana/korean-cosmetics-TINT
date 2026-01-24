@@ -9,9 +9,9 @@ function CategoriesList() {
   const normalizedCategoriesList = useMemo(
     () =>
       categories?.map((category) =>
-        typeof category === "string" ? category : category.title,
+        typeof category === "string" ? category : category.title
       ) || [],
-    [categories],
+    [categories]
   );
 
   if (status === "loading" || status === "idle") {
@@ -25,7 +25,6 @@ function CategoriesList() {
       </div>
     );
   }
-
 
   return (
     <CategoryBrandList

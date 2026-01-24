@@ -24,6 +24,8 @@ export function normalizeCartItem(item) {
       variant_id: item.variant_id,
       variant_title: item.variant_title,
       quantity: Number(item.quantity) || 1,
+      product_is_active: item.product_is_active,
+      variant_is_active: item.variant_is_active,
     };
   }
 
@@ -32,5 +34,7 @@ export function normalizeCartItem(item) {
     product_id: item.product_id,
     variant_id: item.variant_id !== undefined ? item.variant_id : null,
     quantity: Number(item.quantity) || 1,
+    product_is_active: item.product_is_active,
+    variant_is_active: item.variant_is_active,
   };
 }

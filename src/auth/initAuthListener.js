@@ -17,7 +17,7 @@ export function initAuthListener() {
           uid: user.uid,
           email: user.email,
           displayName: user.displayName,
-        }),
+        })
       );
       await store.dispatch(fetchCartItems());
     } else {

@@ -8,7 +8,7 @@ export function addGuestItem(items, payload) {
       Number(item.product_id) === Number(productId) &&
       (variantId == null
         ? item.variant_id == null
-        : Number(item.variant_id) === Number(variantId)),
+        : Number(item.variant_id) === Number(variantId))
   );
 
   if (idx !== -1) {
@@ -24,7 +24,7 @@ export function addGuestItem(items, payload) {
     const nextQuantity = Math.min(item.quantity + quantity, maxQuantity);
 
     return items.map((it, i) =>
-      i === idx ? { ...it, quantity: nextQuantity } : it,
+      i === idx ? { ...it, quantity: nextQuantity } : it
     );
   }
 
@@ -48,7 +48,7 @@ export function updateGuestItem(items, payload) {
       ? item.variant_id == null
       : Number(item.variant_id) === Number(variantId))
       ? { ...item, quantity }
-      : item,
+      : item
   );
 }
 
@@ -62,6 +62,6 @@ export function deleteGuestItem(items, payload) {
         (variantId == null
           ? item.variant_id == null
           : Number(item.variant_id) === Number(variantId))
-      ),
+      )
   );
 }

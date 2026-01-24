@@ -7,12 +7,15 @@ import { useEffect } from "react";
 import ImageWithLoader from "../ImageWithLoader";
 
 const styles = {
-  backdrop: "fixed inset-0 z-50 flex items-start justify-center px-2 pt-4 sm:px-4 sm:pt-8 md:pt-20",
+  backdrop:
+    "fixed inset-0 z-50 flex items-start justify-center px-2 pt-4 sm:px-4 sm:pt-8 md:pt-20",
   overlay: "absolute inset-0 bg-black/60 backdrop-blur-sm",
-  modal: "relative w-full max-w-xl overflow-hidden rounded-xl bg-white shadow-2xl sm:rounded-2xl",
+  modal:
+    "relative w-full max-w-xl overflow-hidden rounded-xl bg-white shadow-2xl sm:rounded-2xl",
   header: "border-b border-stone-200 p-3 sm:p-4",
   headerInner: "mb-2 flex items-center justify-between sm:mb-3",
-  content: "max-h-[calc(100vh-180px)] overflow-y-auto p-3 sm:max-h-[50vh] sm:p-4",
+  content:
+    "max-h-[calc(100vh-180px)] overflow-y-auto p-3 sm:max-h-[50vh] sm:p-4",
   resultsList: "space-y-2",
 
   title: "text-base font-bold text-stone-800 sm:text-lg",
@@ -25,20 +28,22 @@ const styles = {
   searchContainer:
     "flex items-center gap-2 rounded-xl border border-stone-300 bg-stone-100 px-3 py-2 focus-within:border-pink-500 focus-within:ring-2 focus-within:ring-pink-500/20 sm:gap-3",
   searchIcon: "text-base text-stone-500 sm:text-lg",
-  searchInput: "w-full bg-transparent text-sm outline-none placeholder:text-stone-400",
+  searchInput:
+    "w-full bg-transparent text-sm outline-none placeholder:text-stone-400",
 
   resultItem:
     "flex cursor-pointer items-center gap-3 rounded-lg border border-stone-200 p-2.5 transition-colors active:bg-stone-50 sm:gap-4 sm:rounded-xl sm:p-3 sm:hover:bg-stone-50",
-  resultImage: "h-14 w-14 flex-shrink-0 rounded-lg object-cover sm:h-16 sm:w-16",
+  resultImage:
+    "h-14 w-14 flex-shrink-0 rounded-lg object-cover sm:h-16 sm:w-16",
   resultContent: "min-w-0 flex-1",
-  resultTitle: "line-clamp-2 text-sm font-semibold text-stone-800 sm:line-clamp-1",
+  resultTitle:
+    "line-clamp-2 text-sm font-semibold text-stone-800 sm:line-clamp-1",
   resultPrice: "mt-0.5 text-xs text-stone-500 sm:text-xs",
 };
 
 export default function SearchModal({ open, onClose }) {
   const { query, results, loading, error, updateQuery, resetSearch } =
     useProductSearch(open);
-
 
   useEffect(() => {
     if (open) {
@@ -122,6 +127,6 @@ export default function SearchModal({ open, onClose }) {
         </div>
       </div>
     </div>,
-    document.body,
+    document.body
   );
 }

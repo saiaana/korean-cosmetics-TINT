@@ -75,14 +75,14 @@ export const fetchBrands = createAsyncThunk(
   "products/fetchBrands",
   async () => {
     return await getAllBrands();
-  },
+  }
 );
 
 export const fetchCategories = createAsyncThunk(
   "products/fetchCategories",
   async () => {
     return await getCategories();
-  },
+  }
 );
 
 export const fetchNewProducts = createAsyncThunk(
@@ -90,7 +90,7 @@ export const fetchNewProducts = createAsyncThunk(
   async ({ page = 1, limit = 12, append = false } = {}) => {
     const response = await getNewProducts(page, limit);
     return { ...response, append };
-  },
+  }
 );
 
 export const fetchOnSaleProducts = createAsyncThunk(
@@ -98,7 +98,7 @@ export const fetchOnSaleProducts = createAsyncThunk(
   async ({ page = 1, limit = 12, append = false } = {}) => {
     const response = await getOnSaleProducts(page, limit);
     return { ...response, append };
-  },
+  }
 );
 
 export const fetchBestsellerProducts = createAsyncThunk(
@@ -106,7 +106,7 @@ export const fetchBestsellerProducts = createAsyncThunk(
   async ({ page = 1, limit = 12, append = false } = {}) => {
     const response = await getBestsellerProducts(page, limit);
     return { ...response, append };
-  },
+  }
 );
 
 export const fetchProductsByCategory = createAsyncThunk(
@@ -114,7 +114,7 @@ export const fetchProductsByCategory = createAsyncThunk(
   async ({ category, page = 1, limit = 12, append = false }) => {
     const response = await getProductsByCategory(category, page, limit);
     return { ...response, append };
-  },
+  }
 );
 
 export const fetchProductsByBrand = createAsyncThunk(
@@ -122,19 +122,19 @@ export const fetchProductsByBrand = createAsyncThunk(
   async ({ brand, page = 1, limit = 12, append = false }) => {
     const response = await getProductsByBrand(brand, page, limit);
     return { ...response, append };
-  },
+  }
 );
 
 export const fetchSimilarProducts = createAsyncThunk(
   "products/fetchSimilarProducts",
   async ({ category, brand, excludeId }) => {
     return await getSimilarProducts({ category, brand, excludeId });
-  },
+  }
 );
 
 export const fetchProductBySlug = createAsyncThunk(
   "products/fetchProductBySlug",
-  async (slug) => await getProductBySlug(slug),
+  async (slug) => await getProductBySlug(slug)
 );
 
 const productsSlice = createSlice({
@@ -177,7 +177,7 @@ const productsSlice = createSlice({
           if (append) {
             state.lists[listKey].ids = mergeUniqueIds(
               state.lists[listKey].ids,
-              nextIds,
+              nextIds
             );
             state.lists[listKey].page = page;
           } else {
@@ -290,7 +290,6 @@ const productsSlice = createSlice({
 
 export const { resetList } = productsSlice.actions;
 
-
 const selectProductsEntities = (state) => state.products.products.entities;
 const selectLists = (state) => state.products.lists;
 
@@ -303,7 +302,7 @@ const selectListIds = (listKey) =>
 export const selectProductsByList = (listKey) =>
   createSelector(
     [selectListIds(listKey), selectProductsEntities],
-    (ids, entities) => ids.map((id) => entities[id]).filter(Boolean),
+    (ids, entities) => ids.map((id) => entities[id]).filter(Boolean)
   );
 
 export const selectListStatus = (listKey) =>
@@ -337,7 +336,7 @@ const selectProductPageId = (state) => state.products.productPage.id;
 
 export const selectCurrentProduct = createSelector(
   [selectProductPageId, selectProductsEntities],
-  (id, entities) => (id ? (entities[id] ?? null) : null),
+  (id, entities) => (id ? (entities[id] ?? null) : null)
 );
 
 export const selectCurrentProductStatus = (state) =>
@@ -348,22 +347,22 @@ const selectCategoriesState = (state) => state.products.categories;
 
 export const selectBrands = createSelector(
   [selectBrandsState],
-  (brandsState) => brandsState?.data || [],
+  (brandsState) => brandsState?.data || []
 );
 
 export const selectBrandsStatus = createSelector(
   [selectBrandsState],
-  (brandsState) => brandsState?.status || "idle",
+  (brandsState) => brandsState?.status || "idle"
 );
 
 export const selectCategories = createSelector(
   [selectCategoriesState],
-  (categoriesState) => categoriesState?.data || [],
+  (categoriesState) => categoriesState?.data || []
 );
 
 export const selectCategoriesStatus = createSelector(
   [selectCategoriesState],
-  (categoriesState) => categoriesState?.status || "idle",
+  (categoriesState) => categoriesState?.status || "idle"
 );
 
 export default productsSlice.reducer;

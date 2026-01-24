@@ -28,7 +28,7 @@ export function getImageUrl(imageUrl) {
       /https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?/,
       (match, host, port) => {
         return `${currentProtocol}//${currentHost}${port || ""}`;
-      },
+      }
     );
 
     return newUrl;
@@ -39,4 +39,14 @@ export function getImageUrl(imageUrl) {
 
 export function getMainImageUrl(images) {
   return getImageUrl(images?.find((img) => img.is_main)?.url);
+}
+
+export function formatDate(dateString) {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }

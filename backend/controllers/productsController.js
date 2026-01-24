@@ -9,6 +9,57 @@ export async function getAllProducts(req, res) {
   }
 }
 
+export async function getAllAdminProducts(req, res) {
+  try {
+    const products = await productsService.getAllAdminProducts();
+    res.json(products);
+  } catch (err) {
+    res.status(err.status || 500).json({ error: err.message });
+  }
+}
+
+export async function getAdminProductById(req, res) {
+  try {
+    const product = await productsService.getAdminProductById(
+      parseInt(req.params.productId, 10)
+    );
+    res.json(product);
+  } catch (err) {
+    res.status(err.status || 500).json({ error: err.message });
+  }
+}
+
+export async function updateProductActiveStatus(req, res) {
+  try {
+    const { productId } = req.params;
+    const { is_active } = req.body;
+    
+    if (typeof is_active !== "boolean") {
+      return res.status(400).json({ error: "is_active must be a boolean" });
+    }
+
+    const product = await productsService.updateProductActiveStatus(
+      parseInt(productId, 10),
+      is_active
+    );
+    res.json(product);
+  } catch (err) {
+    res.status(err.status || 500).json({ error: err.message });
+  }
+}
+
+export async function updateProduct(req, res) {
+  try {
+    const product = await productsService.updateProduct(
+      parseInt(req.params.productId, 10),
+      req.body
+    );
+    res.json(product);
+  } catch (err) {
+    res.status(err.status || 500).json({ error: err.message });
+  }
+}
+
 export async function getAllBrands(req, res) {
   try {
     const brands = await productsService.getAllBrands();
@@ -124,10 +175,11 @@ export async function searchProducts(req, res) {
 
 export async function getSimilarProducts(req, res) {
   try {
+    const excludeId = req.query.excludeId ? parseInt(req.query.excludeId, 10) : null;
     const products = await productsService.getSimilarProducts(
       req.query.category,
       req.query.brand,
-      req.query.excludeId,
+      excludeId,
     );
     res.json(products);
   } catch (err) {

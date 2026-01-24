@@ -55,7 +55,7 @@ export function useProductCart(activeItem) {
             variant_stock: activeItem.variantId ? activeItem.stock : null,
           },
         }),
-      }),
+      })
     );
   };
 

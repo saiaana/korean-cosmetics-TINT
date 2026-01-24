@@ -19,7 +19,10 @@ export function useUserOrders(uid) {
         if (import.meta.env.DEV) {
           console.error("User orders error:", err);
         }
-        if (err.message?.includes("User not found") || err.message?.includes("user not found")) {
+        if (
+          err.message?.includes("User not found") ||
+          err.message?.includes("user not found")
+        ) {
           setOrders([]);
           setError(null);
         } else {

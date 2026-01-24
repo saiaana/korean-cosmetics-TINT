@@ -22,7 +22,7 @@ function CatalogDropdown({ closeDropdown }) {
   const categoryLabels = categories.map((category) =>
     typeof category === "string"
       ? category
-      : category.name || category.title || category,
+      : category.name || category.title || category
   );
   return (
     <div

@@ -1,7 +1,18 @@
 import { API_BASE_URL, API_ENDPOINTS } from "../config/api";
 
+export async function getAllProducts() {
+  const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.products.all}`);
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to fetch products");
+  }
+  return response.json();
+}
+
 export async function getAllBrands() {
-  const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.products.brands}`);
+  const response = await fetch(
+    `${API_BASE_URL}${API_ENDPOINTS.products.brands}`
+  );
 
   if (!response.ok) {
     const error = await response.json();
@@ -106,11 +117,11 @@ export async function getProductBySlug(slug) {
   return response.json();
 }
 
-export async function getSimilarProducts(category, brand, excludeId) {
+export async function getSimilarProducts({ category, brand, excludeId }) {
   const params = new URLSearchParams({
-    category,
-    brand,
-    excludeId: excludeId.toString(),
+    category: category || "",
+    brand: brand || "",
+    excludeId: excludeId ? excludeId.toString() : "",
   });
 
   const response = await fetch(
@@ -152,15 +163,86 @@ export async function getProductVariants(productId) {
   return response.json();
 }
 
+export async function getAllAdminProducts() {
+  const response = await fetch(
+    `${API_BASE_URL}${API_ENDPOINTS.products.adminAll}`
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to fetch admin products");
+  }
+
+  return response.json();
+}
+
+export async function getAdminProductById(productId) {
+  const response = await fetch(
+    `${API_BASE_URL}${API_ENDPOINTS.products.adminById(productId)}`
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to fetch product");
+  }
+
+  return response.json();
+}
+
+export async function updateProductActiveStatus(productId, isActive, token) {
+  const response = await fetch(
+    `${API_BASE_URL}${API_ENDPOINTS.products.updateActive(productId)}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ is_active: isActive }),
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to update product status");
+  }
+
+  return response.json();
+}
+
+export async function updateProduct(productId, productData, token) {
+  const response = await fetch(
+    `${API_BASE_URL}${API_ENDPOINTS.products.update(productId)}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(productData),
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to update product");
+  }
+
+  return response.json();
+}
+
 export async function createProduct(productData, token) {
-  const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.products.base}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(productData),
-  });
+  const response = await fetch(
+    `${API_BASE_URL}${API_ENDPOINTS.products.base}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(productData),
+    }
+  );
 
   if (!response.ok) {
     const error = await response.json();

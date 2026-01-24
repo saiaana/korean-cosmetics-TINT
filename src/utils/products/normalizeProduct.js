@@ -6,7 +6,7 @@ export function normalizeProduct(product) {
   }
 
   const finalPrice = Number(
-    getFinalPrice(product.price, product.discount_percent, product.on_sale),
+    getFinalPrice(product.price, product.discount_percent, product.on_sale)
   );
 
   return {

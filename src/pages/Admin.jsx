@@ -39,6 +39,13 @@ export default function Admin() {
       icon: "➕",
       color: "bg-purple-50 hover:bg-purple-100 border-purple-200",
     },
+    {
+      title: "Products Management",
+      description: "View and manage all products in the catalog",
+      link: "/admin/products",
+      icon: "🛒",
+      color: "bg-purple-50 hover:bg-purple-100 border-purple-200",
+    },
   ];
 
   return (
@@ -54,7 +61,14 @@ export default function Admin() {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {adminMenuItems.map((item) => (
-            <AdminMenuItem key={item.link} title={item.title} icon={item.icon} link={item.link} color={item.color} description={item.description} />
+          <AdminMenuItem
+            key={item.link}
+            title={item.title}
+            icon={item.icon}
+            link={item.link}
+            color={item.color}
+            description={item.description}
+          />
         ))}
       </div>
       <AdminQuickActions />

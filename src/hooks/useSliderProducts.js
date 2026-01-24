@@ -12,7 +12,7 @@ export default function useSliderProducts({
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchAction());
+      dispatch(fetchAction({ page: 1, limit: 12, append: false }));
     }
   }, [dispatch, status, fetchAction]);
 

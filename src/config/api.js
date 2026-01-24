@@ -20,7 +20,6 @@ const getApiBaseUrl = () => {
   return import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
 };
 
-
 // const getApiBaseUrl = () => {
 //   if (import.meta.env.VITE_API_BASE_URL) {
 //     return import.meta.env.VITE_API_BASE_URL;
@@ -33,7 +32,6 @@ const getApiBaseUrl = () => {
 //   }
 
 //   const apiUrl = `http://${hostname}:4000`;
-
 
 //   return apiUrl;
 // };
@@ -54,6 +52,7 @@ export const API_ENDPOINTS = {
   },
   products: {
     base: "/api/products",
+    all: "/api/products/all",
     search: "/api/products/search",
     brands: "/api/products/brands",
     brand: (brand) => `/api/products/brands/${brand}`,
@@ -65,6 +64,10 @@ export const API_ENDPOINTS = {
     slug: (slug) => `/api/products/slug/${slug}`,
     categoriesList: "/api/products/categoriesList",
     variants: (productId) => `/api/products/${productId}/variants`,
+    adminAll: "/api/products/admin/all",
+    adminById: (productId) => `/api/products/admin/${productId}`,
+    updateActive: (productId) => `/api/products/${productId}/active`,
+    update: (productId) => `/api/products/${productId}`,
   },
   cart: {
     base: "/api/cart",

@@ -9,7 +9,7 @@ export default function useCartItem({ item }) {
 
   const productSlug = useMemo(
     () => getProductSlug(item.product_id, item.title || item.name),
-    [item.product_id, item.title, item.name],
+    [item.product_id, item.title, item.name]
   );
 
   const productTotal = (finalPrice, quantity) => {
@@ -40,6 +40,18 @@ export default function useCartItem({ item }) {
     });
   }, [item.variant_id, item.variant_stock, item.stock]);
 
+  // Проверяем, активен ли товар
+  const isInactive = useMemo(() => {
+    // Если есть вариант, проверяем активность варианта, иначе проверяем активность товара
+    if (item.variant_id) {
+      return item.variant_is_active === false;
+    }
+    return item.product_is_active === false;
+  }, [item.variant_id, item.variant_is_active, item.product_is_active]);
+
+  // Товар недоступен, если он неактивен или закончился на складе
+  const isUnavailable = isInactive || isOutOfStock;
+
   return {
     mainImage,
     productSlug,
@@ -49,6 +61,8 @@ export default function useCartItem({ item }) {
     displayTitle,
     displayTotal,
     isOutOfStock,
+    isInactive,
+    isUnavailable,
     exceededMaxAvailableQuantity: isExceededMaxAvailableQuantity,
   };
 }

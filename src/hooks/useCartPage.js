@@ -29,7 +29,7 @@ export function useCartPage() {
     (productId) => {
       dispatch(toggleSelected(productId));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleIncrease = useCallback(
@@ -39,7 +39,7 @@ export function useCartPage() {
           Number(item.product_id) === Number(productId) &&
           (variantId
             ? Number(item.variant_id) === Number(variantId)
-            : item.variant_id === null),
+            : item.variant_id === null)
       );
 
       if (!cartItem) return;
@@ -59,10 +59,10 @@ export function useCartPage() {
           productId,
           variantId,
           quantity: quantity + 1,
-        }),
+        })
       );
     },
-    [dispatch, cart],
+    [dispatch, cart]
   );
 
   const handleDecrease = useCallback(
@@ -77,11 +77,11 @@ export function useCartPage() {
             productId,
             variantId,
             quantity: quantity - 1,
-          }),
+          })
         );
       }
     },
-    [dispatch],
+    [dispatch]
   );
 
   const confirmDelete = useCallback(() => {
@@ -118,7 +118,7 @@ export function useCartPage() {
 
         return total;
       }, 0),
-    [cart, selected],
+    [cart, selected]
   );
 
   return {

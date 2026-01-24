@@ -9,10 +9,10 @@ export async function handleCheckout(
   auth,
   dispatch,
   navigate,
-  deleteSelectedItems,
+  deleteSelectedItems
 ) {
   const cleanedData = Object.fromEntries(
-    Object.entries(formData).map(([key, val]) => [key, val.trim()]),
+    Object.entries(formData).map(([key, val]) => [key, val.trim()])
   );
 
   if (!isValidEmail(cleanedData.email)) {
@@ -57,7 +57,7 @@ export async function handleCheckout(
     const result = await createOrder(orderData, token);
 
     const selectedKeys = cart.map((item) =>
-      getCartItemKey(item.product_id || item.id, item.variant_id || null),
+      getCartItemKey(item.product_id || item.id, item.variant_id || null)
     );
     await dispatch(deleteSelectedItems(selectedKeys));
 

@@ -34,7 +34,7 @@ function AdminStats() {
   }, []);
 
   const formatPrice = (price) => {
-    return `$${(Number(price)).toFixed(2)}`;
+    return `$${Number(price).toFixed(2)}`;
   };
 
   if (!isAuthInitialized) {
@@ -122,13 +122,13 @@ function AdminStats() {
                 </thead>
                 <tbody className="divide-y divide-stone-200 bg-white">
                   {popularProducts.map((product, index) => {
-                    const uniqueKey = product.variant_id 
-                      ? `${product.product_id}-${product.variant_id}` 
+                    const uniqueKey = product.variant_id
+                      ? `${product.product_id}-${product.variant_id}`
                       : product.product_id;
-                    const displayTitle = product.variant_title 
+                    const displayTitle = product.variant_title
                       ? `${product.title} - ${product.variant_title}`
                       : product.title;
-                    
+
                     return (
                       <tr key={uniqueKey} className="hover:bg-stone-50">
                         <td className="whitespace-nowrap px-6 py-4 text-center text-sm font-bold text-stone-900">
@@ -137,7 +137,7 @@ function AdminStats() {
                         <td className="px-6 py-4">
                           <Link
                             to={getProductUrl(
-                              product.product_id, 
+                              product.product_id,
                               product.title,
                               product.variant_id || null
                             )}

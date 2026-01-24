@@ -40,4 +40,3 @@ function HeroLayout() {
 }
 
 export default HeroLayout;
-

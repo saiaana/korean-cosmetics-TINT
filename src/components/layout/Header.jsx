@@ -11,7 +11,7 @@ function Header({ variant = "flow" }) {
   };
 
   const cartCount = useSelector((state) =>
-    state.cart.items.reduce((sum) => sum + 1, 0),
+    state.cart.items.reduce((sum) => sum + 1, 0)
   );
 
   return (

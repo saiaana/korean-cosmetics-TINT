@@ -5,7 +5,7 @@ import ImageWithLoader from "../ImageWithLoader";
 
 function ProductCategoryButton({ path, title }) {
   const imageSrc = CATEGORIES.find(
-    (category) => category.name.toLowerCase() === path.toLowerCase(),
+    (category) => category.name.toLowerCase() === path.toLowerCase()
   )?.image;
 
   return (

@@ -16,6 +16,9 @@ export default function ImageWithLoader({
     if (src) {
       setLoading(true);
       setError(false);
+    } else {
+      setLoading(false);
+      setError(false);
     }
   }, [src]);
 
@@ -33,13 +36,13 @@ export default function ImageWithLoader({
 
   return (
     <div className={`relative ${containerClassName || "h-full"}`}>
-      {loading && !error && (
-        <div className="absolute inset-0 flex items-center justify-center bg-stone-100 z-10">
+      {src && loading && !error && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-stone-100">
           <LoadingSpinner size="md" />
         </div>
       )}
-      {error && (
-        <div className="absolute inset-0 flex items-center justify-center bg-stone-100 z-10">
+      {src && error && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-stone-100">
           <div className="text-center text-stone-400">
             <svg
               className="mx-auto h-8 w-8"
@@ -58,6 +61,13 @@ export default function ImageWithLoader({
           </div>
         </div>
       )}
+
+      {!src && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-stone-100">
+          <p className="text-center text-stone-400">No image</p>
+        </div>
+      )}
+
       <img
         src={src}
         alt={alt}
@@ -69,4 +79,3 @@ export default function ImageWithLoader({
     </div>
   );
 }
-

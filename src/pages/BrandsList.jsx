@@ -10,10 +10,10 @@ function BrandsList() {
     () =>
       brands
         ? [...brands].sort((a, b) =>
-            a.localeCompare(b, undefined, { sensitivity: "base" }),
+            a.localeCompare(b, undefined, { sensitivity: "base" })
           )
         : [],
-    [brands],
+    [brands]
   );
 
   if (status === "loading") {

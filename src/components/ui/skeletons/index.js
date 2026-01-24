@@ -6,4 +6,3 @@ export { default as HomePageSkeleton } from "./HomePageSkeleton";
 export { default as AccountPageSkeleton } from "./AccountPageSkeleton";
 export { default as BlogCardSkeleton } from "./BlogCardSkeleton";
 export { default as BlogListSkeleton } from "./BlogListSkeleton";
-

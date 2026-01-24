@@ -45,4 +45,3 @@ export default function ProductPageSkeleton() {
     </div>
   );
 }
-

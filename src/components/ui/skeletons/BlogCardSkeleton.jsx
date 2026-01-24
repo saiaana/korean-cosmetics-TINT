@@ -7,10 +7,9 @@ export default function BlogCardSkeleton() {
       <div className="absolute bottom-0 w-full bg-white/80 px-4 py-4 backdrop-blur-md">
         <div className="space-y-2">
           <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-3/4 mx-auto" />
+          <Skeleton className="mx-auto h-4 w-3/4" />
         </div>
       </div>
     </div>
   );
 }
-

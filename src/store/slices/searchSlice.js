@@ -12,7 +12,7 @@ export const searchProducts = createAsyncThunk(
       }
       throw error;
     }
-  },
+  }
 );
 
 const searchSlice = createSlice({
@@ -42,7 +42,6 @@ const searchSlice = createSlice({
         state.results = action.payload;
       })
       .addCase(searchProducts.rejected, (state, action) => {
-
         if (action.payload === "Request aborted") {
           return;
         }

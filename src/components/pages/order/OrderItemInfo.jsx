@@ -21,7 +21,7 @@ function OrderItemInfo({ order }) {
               to={getProductUrl(
                 item.product_id,
                 item.title,
-                item.variant_id || null,
+                item.variant_id || null
               )}
               className="group flex items-center gap-4 rounded-xl border border-stone-200 p-4 transition-all duration-300 hover:bg-stone-50 hover:shadow-sm"
             >

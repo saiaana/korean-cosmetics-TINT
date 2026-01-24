@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import ROUTES from "../../../constants/routes";
+import { formatDate } from "../../../utils/helpers";
 
 export default function OrderCard({ order }) {
+
+  const formattedDate = formatDate(order.created_at);
+
   return (
     <Link
       to={ROUTES.orderConfirmation(order.id)}
@@ -11,11 +15,12 @@ export default function OrderCard({ order }) {
       <p className="font-semibold">Order №: {order.id}</p>
       <p>
         Date:{" "}
-        {new Date(order.created_at).toLocaleDateString("en-US", {
+        {formattedDate}
+        {/* {new Date(order.created_at).toLocaleDateString("en-US", {
           year: "numeric",
           month: "short",
           day: "numeric",
-        })}
+        })} */}
       </p>
     </Link>
   );

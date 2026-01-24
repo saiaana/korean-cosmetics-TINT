@@ -8,7 +8,7 @@ export async function signUpUser({ email, password, firstName, lastName }) {
   const userCredential = await createUserWithEmailAndPassword(
     auth,
     email,
-    password,
+    password
   );
 
   const user = userCredential.user;
@@ -24,7 +24,7 @@ export async function signUpUser({ email, password, firstName, lastName }) {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
-    }),
+    })
   );
 
   const token = await user.getIdToken();
@@ -36,7 +36,7 @@ export async function signUpUser({ email, password, firstName, lastName }) {
       firstName,
       lastName,
     },
-    token,
+    token
   );
 
   return user;

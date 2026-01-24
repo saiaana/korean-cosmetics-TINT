@@ -39,7 +39,7 @@ export default function useProductPage() {
         selectedVariant,
         hasVariants,
       }),
-    [product, selectedVariant, hasVariants],
+    [product, selectedVariant, hasVariants]
   );
 
   const stock = useProductStock(activeItem);

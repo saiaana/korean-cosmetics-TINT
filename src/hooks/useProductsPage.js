@@ -93,19 +93,19 @@ export function useProductsPage() {
       config?.listKey
         ? selectProductsByList(config.listKey)
         : emptyArraySelector,
-    [config?.listKey],
+    [config?.listKey]
   );
 
   const statusSelector = useMemo(
     () =>
       config?.listKey ? selectListStatus(config.listKey) : idleStatusSelector,
-    [config?.listKey],
+    [config?.listKey]
   );
 
   const paginationSelector = useMemo(
     () =>
       config?.listKey ? selectListPagination(config.listKey) : nullSelector,
-    [config?.listKey],
+    [config?.listKey]
   );
 
   const products = useSelector(productsSelector);

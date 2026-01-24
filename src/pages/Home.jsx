@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ProductCategories from "../components/common/ProductCategories";
 import PromotionsSlider from "../components/ui/sliders/PromotionsSlider";
 import HeaderSlider from "../components/ui/sliders/HeaderSlider";
@@ -11,9 +11,13 @@ import {
   selectNewProductsStatus,
   selectOnSaleProductsStatus,
   selectBestsellerProductsStatus,
+  fetchNewProducts,
+  fetchOnSaleProducts,
+  fetchBestsellerProducts,
 } from "../store/slices/productsSlice";
 
 function Home() {
+  const dispatch = useDispatch();
   const newProductsStatus = useSelector(selectNewProductsStatus);
   const onSaleProductsStatus = useSelector(selectOnSaleProductsStatus);
   const bestsellerProductsStatus = useSelector(selectBestsellerProductsStatus);
@@ -24,16 +28,34 @@ function Home() {
     bestsellerProductsStatus === "loading";
   const [visibleSections, setVisibleSections] = useState({
     categories: true,
-    newProducts: false,
-    promotions: false,
-    bestsellers: false,
-    locations: false,
+    newProducts: true,
+    promotions: true,
+    bestsellers: true,
+    locations: true,
   });
 
   const newProductsRef = useRef(null);
   const promotionsRef = useRef(null);
   const bestsellersRef = useRef(null);
   const locationsRef = useRef(null);
+
+  // Загружаем данные для всех слайдеров сразу при монтировании
+  useEffect(() => {
+    if (newProductsStatus === "idle") {
+      dispatch(fetchNewProducts({ page: 1, limit: 12, append: false }));
+    }
+    if (onSaleProductsStatus === "idle") {
+      dispatch(fetchOnSaleProducts({ page: 1, limit: 12, append: false }));
+    }
+    if (bestsellerProductsStatus === "idle") {
+      dispatch(fetchBestsellerProducts({ page: 1, limit: 12, append: false }));
+    }
+  }, [
+    dispatch,
+    newProductsStatus,
+    onSaleProductsStatus,
+    bestsellerProductsStatus,
+  ]);
 
   useEffect(() => {
     const observers = [];
@@ -50,7 +72,7 @@ function Home() {
             }
           });
         },
-        { threshold: 0.1, rootMargin: "100px" },
+        { threshold: 0.1, rootMargin: "100px" }
       );
 
       observer.observe(ref.current);

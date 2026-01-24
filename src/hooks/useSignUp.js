@@ -16,7 +16,7 @@ export default function useSignUp() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, initialized: isAuthInitialized } = useSelector(
-    (state) => state.auth,
+    (state) => state.auth
   );
 
   useEffect(() => {

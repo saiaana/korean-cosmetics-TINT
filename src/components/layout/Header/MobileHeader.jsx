@@ -9,7 +9,7 @@ export default function MobileHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const cartCount = useSelector((state) =>
-    state.cart.items.reduce((sum) => sum + 1, 0),
+    state.cart.items.reduce((sum) => sum + 1, 0)
   );
 
   const closeMenu = () => setIsMenuOpen(false);

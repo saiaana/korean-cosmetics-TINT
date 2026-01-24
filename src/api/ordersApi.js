@@ -20,7 +20,7 @@ export async function createOrder(orderData, token) {
 
 export async function getOrderById(orderId) {
   const response = await fetch(
-    `${API_BASE_URL}${API_ENDPOINTS.orders.byId(orderId)}`,
+    `${API_BASE_URL}${API_ENDPOINTS.orders.byId(orderId)}`
   );
 
   if (!response.ok) {
@@ -36,7 +36,7 @@ export async function getOrderById(orderId) {
 
 export async function getUserOrders(firebaseUid) {
   const response = await fetch(
-    `${API_BASE_URL}${API_ENDPOINTS.orders.byUser(firebaseUid)}`,
+    `${API_BASE_URL}${API_ENDPOINTS.orders.byUser(firebaseUid)}`
   );
 
   if (!response.ok) {
@@ -70,7 +70,7 @@ export async function updateOrderStatus(orderId, status, token) {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ status }),
-    },
+    }
   );
 
   if (!response.ok) {

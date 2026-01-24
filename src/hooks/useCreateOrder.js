@@ -15,7 +15,7 @@ export default function useCreateOrder() {
   const selectedItems = useSelector(selectSelectedItems);
   const totalPrice = useSelector(selectSelectedItemsTotal);
   const { user, initialized: isAuthInitialized } = useSelector(
-    (state) => state.auth,
+    (state) => state.auth
   );
 
   const [formData, setFormData] = useState({
@@ -67,7 +67,7 @@ export default function useCreateOrder() {
       auth,
       dispatch,
       navigate,
-      deleteSelectedCartItems,
+      deleteSelectedCartItems
     );
   };
 

@@ -10,7 +10,7 @@ import ROUTES from "../constants/routes";
 
 export default function useLogin() {
   const { user, initialized: isAuthInitialized } = useSelector(
-    (state) => state.auth,
+    (state) => state.auth
   );
   const navigate = useNavigate();
   const dispatch = useDispatch();

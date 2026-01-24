@@ -11,4 +11,3 @@ export default function BlogListSkeleton({ count = 6 }) {
     </div>
   );
 }
-

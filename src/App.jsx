@@ -12,7 +12,7 @@ import BlogPost from "./pages/BlogPost";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Account from "./pages/Account";
-import AdmiOrderList from "./pages/AdminOrderList";
+import AdminOrderList from "./pages/AdminOrderList";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import NotFound from "./pages/NotFound";
 import StandardLayout from "./components/layout/StandardLayout";
@@ -21,6 +21,7 @@ import AdminOrderInfo from "./pages/AdminOrderInfo";
 import Admin from "./pages/Admin";
 import AdminStats from "./pages/AdminStats";
 import AddProduct from "./pages/AddProduct";
+import AdminProducts from "./pages/AdminProducts";
 
 const router = createBrowserRouter([
   {
@@ -114,8 +115,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/admin/orders",
-        element: <AdmiOrderList />,
-
+        element: <AdminOrderList />,
       },
       {
         path: "/admin",
@@ -126,7 +126,15 @@ const router = createBrowserRouter([
         element: <AdminStats />,
       },
       {
+        path: "/admin/products",
+        element: <AdminProducts />,
+      },
+      {
         path: "/admin/products/add",
+        element: <AddProduct />,
+      },
+      {
+        path: "/admin/products/:productId/edit",
         element: <AddProduct />,
       },
       {

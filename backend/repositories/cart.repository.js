@@ -19,6 +19,7 @@ export async function findCartItemsByUserId(userId) {
       p.volume,
       p.stock,
       p.ingridients,
+      p.is_active as product_is_active,
       COALESCE(
         json_agg(
           json_build_object(
@@ -47,7 +48,8 @@ export async function findCartItemsByUserId(userId) {
       END as variant_images,
       pv.variant_title,
       pv.variant_price,
-      pv.variant_stock
+      pv.variant_stock,
+      pv.is_active as variant_is_active
     FROM cart_items ci
     JOIN catalog p ON p.id = ci.product_id
     LEFT JOIN catalog_images img ON img.catalog_id = p.id
@@ -56,8 +58,8 @@ export async function findCartItemsByUserId(userId) {
     WHERE ci.user_id = $1
     GROUP BY ci.product_id, ci.variant_id, ci.quantity, p.id, p.title, p.price, p.brand,
              p.product_category, p.on_sale, p.discount_percent,
-             p.description, p.how_to_use, p.volume, p.ingridients, p.stock,
-             pv.variant_title, pv.variant_price, pv.variant_stock, ci.created_at
+             p.description, p.how_to_use, p.volume, p.ingridients, p.stock, p.is_active,
+             pv.variant_title, pv.variant_price, pv.variant_stock, pv.is_active, ci.created_at
     ORDER BY ci.created_at DESC
     `,
     [userId],

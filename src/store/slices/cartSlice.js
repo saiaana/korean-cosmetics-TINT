@@ -8,7 +8,7 @@ import {
 } from "../../api/cartApi";
 import { mergeGuestCart as mergeGuestCartApi } from "../../api/cartApi";
 import { normalizeCartItem } from "../../utils/cart/normalizeCartItem";
-import { checkStockAvailability } from "../../utils/products/checkStockAvailability";
+import { checkItemUnavailable } from "../../utils/products/checkItemUnavailable";
 import { getCartItemKey } from "../../utils/cart/getCartItemKey";
 
 import {
@@ -30,7 +30,7 @@ export const fetchCartItems = createAsyncThunk(
   async () => {
     const token = await getAuthToken();
     return await getCart(token);
-  },
+  }
 );
 
 export const addToCart = createAsyncThunk(
@@ -45,7 +45,7 @@ export const addToCart = createAsyncThunk(
     }
 
     return { productId, variantId, quantity, productData };
-  },
+  }
 );
 
 export const updateCartItem = createAsyncThunk(
@@ -60,7 +60,7 @@ export const updateCartItem = createAsyncThunk(
     }
 
     return { productId, quantity, variantId };
-  },
+  }
 );
 
 export const deleteCartItem = createAsyncThunk(
@@ -75,7 +75,7 @@ export const deleteCartItem = createAsyncThunk(
     }
 
     return { productId, variantId };
-  },
+  }
 );
 
 export const clearCartItems = createAsyncThunk(
@@ -90,7 +90,7 @@ export const clearCartItems = createAsyncThunk(
     }
 
     return [];
-  },
+  }
 );
 
 export const mergeGuestCart = createAsyncThunk(
@@ -110,7 +110,7 @@ export const mergeGuestCart = createAsyncThunk(
 
     removeCartFromStorage();
     return await getCart(token);
-  },
+  }
 );
 
 export const deleteSelectedCartItems = createAsyncThunk(
@@ -123,8 +123,8 @@ export const deleteSelectedCartItems = createAsyncThunk(
       const nextItems = cart.items.filter(
         (item) =>
           !selectedKeys.includes(
-            getCartItemKey(item.product_id, item.variant_id),
-          ),
+            getCartItemKey(item.product_id, item.variant_id)
+          )
       );
       setCartToStorage(nextItems);
       return nextItems;
@@ -137,12 +137,12 @@ export const deleteSelectedCartItems = createAsyncThunk(
       await deleteCartItemApi(
         token,
         Number(productId),
-        variantId != null ? Number(variantId) : null,
+        variantId != null ? Number(variantId) : null
       );
     }
 
     return await getCart(token);
-  },
+  }
 );
 
 const initialState = {
@@ -166,13 +166,9 @@ const cartSlice = createSlice({
     },
     selectAll(state) {
       state.items.forEach((item) => {
-        const isOutOfStock = checkStockAvailability({
-          variantId: item.variant_id,
-          variantStock: item.variant_stock,
-          productStock: item.stock,
-        });
+        const isUnavailable = checkItemUnavailable(item);
 
-        if (!isOutOfStock) {
+        if (!isUnavailable) {
           const key = getCartItemKey(item.product_id, item.variant_id);
           state.selected[key] = true;
         }

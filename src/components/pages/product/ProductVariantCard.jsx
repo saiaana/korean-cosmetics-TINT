@@ -13,7 +13,7 @@ export default function ProductVariantCard({
 
   const { variantImages, variantPrice, isAvailable } = useProductVariantCard(
     variant,
-    productPrice,
+    productPrice
   );
 
   const stockStatus = getStockStatus(variant.variant_stock);

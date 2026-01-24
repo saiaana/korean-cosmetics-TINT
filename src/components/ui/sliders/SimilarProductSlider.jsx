@@ -16,7 +16,7 @@ function SimilarProductSlider({ product }) {
           category: product.product_category,
           brand: product.brand,
           excludeId: product.id,
-        }),
+        })
       );
     }
   }, [dispatch, product?.id, product?.product_category, product?.brand]);

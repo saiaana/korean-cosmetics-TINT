@@ -6,7 +6,7 @@ import NotFound from "./NotFound";
 function BlogPost() {
   const { blogPostName } = useParams();
   const article = articlesData.articles.find(
-    (article) => article.slug === blogPostName,
+    (article) => article.slug === blogPostName
   );
 
   if (!article) {

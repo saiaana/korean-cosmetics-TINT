@@ -12,7 +12,7 @@ export default function AccountPageSkeleton() {
               <Skeleton className="h-4 w-full" />
               <Skeleton className="h-4 w-3/4" />
             </div>
-            <div className="space-y-2 pt-4 border-t border-stone-200">
+            <div className="space-y-2 border-t border-stone-200 pt-4">
               <Skeleton className="h-4 w-24" />
               <Skeleton className="h-4 w-full" />
             </div>
@@ -36,4 +36,3 @@ export default function AccountPageSkeleton() {
     </div>
   );
 }
-

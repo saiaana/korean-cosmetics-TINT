@@ -33,4 +33,3 @@ export default function LoginForm({ formData, onChange }) {
     </div>
   );
 }
-

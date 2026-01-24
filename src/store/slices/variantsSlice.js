@@ -6,7 +6,7 @@ export const fetchProductVariants = createAsyncThunk(
   async (productId) => {
     const data = await getProductVariants(productId);
     return data.variants || [];
-  },
+  }
 );
 
 const initialState = {

@@ -33,7 +33,12 @@ export async function addToCart(token, productId, quantity, variantId = null) {
   return response.json();
 }
 
-export async function updateCartItem(token, productId, quantity, variantId = null) {
+export async function updateCartItem(
+  token,
+  productId,
+  quantity,
+  variantId = null
+) {
   const response = await fetch(
     `${API_BASE_URL}${API_ENDPOINTS.cart.items(productId)}`,
     {
@@ -43,7 +48,7 @@ export async function updateCartItem(token, productId, quantity, variantId = nul
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ quantity, variantId }),
-    },
+    }
   );
 
   if (!response.ok) {

@@ -77,7 +77,7 @@ function Products() {
 
   const paginatedPages = useMemo(
     () => ["byCategory", "byBrand", "new", "promotions", "bestsellers"],
-    [],
+    []
   );
 
   useEffect(() => {
@@ -96,7 +96,7 @@ function Products() {
           loadMoreProducts();
         }
       },
-      { threshold: 0.1 },
+      { threshold: 0.1 }
     );
 
     const currentTarget = observerTarget.current;
@@ -122,7 +122,6 @@ function Products() {
       </div>
     );
   }
-
 
   return (
     <>

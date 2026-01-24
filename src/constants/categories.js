@@ -30,4 +30,3 @@ const CATEGORIES = [
 ];
 
 export default CATEGORIES;
-

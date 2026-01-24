@@ -9,4 +9,3 @@ export default function ProductsGridSkeleton({ count = 12 }) {
     </div>
   );
 }
-

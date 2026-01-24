@@ -6,9 +6,9 @@ import { getCartItemKey } from "../../../utils/cart/getCartItemKey";
 import ImageWithLoader from "../../ui/ImageWithLoader";
 
 const styles = {
-  container: (isOutOfStock, isSelected) =>
+  container: (isUnavailable, isSelected) =>
     `group flex items-center gap-5 rounded-2xl border border-stone-200 bg-white p-4 transition-all duration-300 ${
-      isOutOfStock
+      isUnavailable
         ? "opacity-60"
         : "hover:shadow-md hover:ring-1 hover:ring-pink-400/40"
     } ${isSelected ? "ring-2 ring-pink-500/40" : ""}`,
@@ -17,11 +17,13 @@ const styles = {
   image: "h-24 w-24 rounded-xl border object-cover",
   contentContainer: "flex flex-1 flex-col justify-between",
   priceContainer: "mt-1 flex items-center gap-2 text-sm",
-  controlsContainer: "mt-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between",
+  controlsContainer:
+    "mt-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between",
   quantityContainer: "flex items-center gap-2",
   totalContainer: "flex flex-col items-end",
 
-  productLink: "cursor-pointer text-sm font-bold uppercase tracking-wide text-stone-800 hover:text-pink-600",
+  productLink:
+    "cursor-pointer text-sm font-bold uppercase tracking-wide text-stone-800 hover:text-pink-600",
   salePrice: "font-semibold text-pink-600",
   originalPrice: "text-stone-400 line-through",
   regularPrice: "font-semibold text-stone-800",
@@ -53,16 +55,18 @@ function CartItem({
     displayTitle,
     displayTotal,
     isOutOfStock,
+    isInactive,
+    isUnavailable,
     exceededMaxAvailableQuantity,
   } = useCartItem({ item });
 
   const onDecrease = () => {
-    if (isOutOfStock) return;
+    if (isUnavailable) return;
     handleDecrease(item.product_id, item.quantity, item.variant_id || null);
   };
 
   const onIncrease = () => {
-    if (isOutOfStock) return;
+    if (isUnavailable) return;
     if (exceededMaxAvailableQuantity) return;
     handleIncrease(item.product_id, item.quantity, item.variant_id || null);
   };
@@ -70,7 +74,7 @@ function CartItem({
   const productUrl = getProductUrl(
     item.product_id,
     item.baseTitle || item.title || item.name,
-    item.variant_id || null,
+    item.variant_id || null
   );
 
   const handleCheck = () => {
@@ -79,12 +83,12 @@ function CartItem({
   };
 
   return (
-    <div className={styles.container(isOutOfStock, isSelected)}>
+    <div className={styles.container(isUnavailable, isSelected)}>
       <label className={styles.checkboxContainer}>
         <input
           type="checkbox"
           checked={isSelected}
-          disabled={isOutOfStock}
+          disabled={isUnavailable}
           onChange={handleCheck}
           className={styles.checkbox}
         />
@@ -117,12 +121,17 @@ function CartItem({
               <span className={styles.regularPrice}>${originalPrice}</span>
             )}
           </div>
-          {isOutOfStock && (
+          {isInactive && (
+            <p className={styles.outOfStockText}>
+              Product is not available anymore
+            </p>
+          )}
+          {!isInactive && isOutOfStock && (
             <p className={styles.outOfStockText}>Out of stock</p>
           )}
         </div>
 
-        {!isOutOfStock && (
+        {!isUnavailable && (
           <div className={styles.controlsContainer}>
             <div className={styles.quantityContainer}>
               <button
