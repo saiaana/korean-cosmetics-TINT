@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { getImageUrl } from "../../../utils/helpers";
 import { getProductUrl } from "../../../utils/products/getProductUrl";
-import ImageWithLoader from "../../ui/ImageWithLoader";
 
 function OrderItemInfo({ order }) {
   return (
@@ -25,11 +24,11 @@ function OrderItemInfo({ order }) {
               )}
               className="group flex items-center gap-4 rounded-xl border border-stone-200 p-4 transition-all duration-300 hover:bg-stone-50 hover:shadow-sm"
             >
-              <ImageWithLoader
-                src={getImageUrl(item.image_url)}
-                alt={item.title}
-                className="h-20 w-20 rounded-lg border object-cover"
-              />
+                             <img
+                      src={getImageUrl(item.image_url) || "/images/no-image.jpg"}
+                      alt={item.title}
+                      className="h-20 w-20 rounded-lg border object-cover"
+                    />
 
               <div className="flex flex-1 flex-col gap-1">
                 <p className="text-sm font-semibold uppercase text-stone-800">

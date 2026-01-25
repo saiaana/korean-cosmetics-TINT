@@ -2,6 +2,17 @@
 
 완전한 전자상거래 기능을 갖춘 현대적인 한국 화장품 전자상거래 플랫폼입니다.
 
+**데모 사용자 자격 증명 (역할: user, 관리자 패널 접근 불가):**
+
+email: demo-user@tint.com
+password: DemoUserPass1234-
+
+**데모 관리자 자격 증명 (역할: admin, 관리자 패널 접근 가능):**
+email: demo-admin@tint.com
+password: DemoAdminPass1234-
+
+⚠️ 데모 계정은 테스트 목적으로만 사용됩니다.
+
 ## 📋 목차
 
 - [설명](#설명)

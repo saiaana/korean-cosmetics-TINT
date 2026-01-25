@@ -3,6 +3,7 @@ import HeaderCategories from "./Header/HeaderCategories";
 import Logo from "../ui/Logo";
 import NavBlock from "./Header/NavBlock";
 import MobileHeader from "./Header/MobileHeader";
+import { ROLES } from "../../constants/roles";
 
 function Header({ variant = "flow" }) {
   const variants = {
@@ -13,6 +14,8 @@ function Header({ variant = "flow" }) {
   const cartCount = useSelector((state) =>
     state.cart.items.reduce((sum) => sum + 1, 0)
   );
+  const user = useSelector((state) => state.auth.user);
+  const isAdmin = user?.role === ROLES.ADMIN;
 
   return (
     <>
@@ -30,7 +33,7 @@ function Header({ variant = "flow" }) {
             </p>
           </div>
           <Logo color="white" />
-          <NavBlock color="white" cartCount={cartCount} />
+          <NavBlock color="white" cartCount={cartCount} isAdmin={isAdmin} />
         </div>
         <HeaderCategories />
       </header>

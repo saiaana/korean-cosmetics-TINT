@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import NavBlock from "./NavBlock";
 import { MENU_ITEMS } from "../../../constants/menuItems";
 import ROUTES from "../../../constants/routes";
+import { ROLES } from "../../../constants/roles";
 
 export default function MobileHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,6 +12,8 @@ export default function MobileHeader() {
   const cartCount = useSelector((state) =>
     state.cart.items.reduce((sum) => sum + 1, 0)
   );
+  const user = useSelector((state) => state.auth.user);
+  const isAdmin = user?.role === ROLES.ADMIN;
 
   const closeMenu = () => setIsMenuOpen(false);
   const toggleMenu = () => setIsMenuOpen((v) => !v);
@@ -45,7 +48,7 @@ export default function MobileHeader() {
           </Link>
 
           <div className="flex items-center gap-10">
-            <NavBlock color="black" cartCount={cartCount} />
+            <NavBlock color="black" cartCount={cartCount} isAdmin={isAdmin} />
             <BurgerButton onClick={toggleMenu} isOpen={isMenuOpen} />
           </div>
         </div>

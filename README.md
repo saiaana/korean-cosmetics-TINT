@@ -7,6 +7,17 @@
 
 A modern Korean cosmetics e-commerce platform with full e-commerce functionality.
 
+**Demo user credentials (role: user, no access to admin panel):**
+
+email: demo-user@tint.com
+password: DemoUserPass1234-
+
+**Demo admin credentials (role: admin, has access to admin panel):**
+email: demo-admin@tint.com
+password: DemoAdminPass1234-
+
+⚠️ Demo accounts are for testing purposes only.
+
 ## 📋 Table of Contents
 
 - [Description](#description)
