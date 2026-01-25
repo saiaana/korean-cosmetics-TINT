@@ -18,7 +18,6 @@ export default function useLogin() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(user);
 
   useEffect(() => {
     if(user&& user.role && user.role === "admin") {

@@ -2,20 +2,29 @@
 
 완전한 전자상거래 기능을 갖춘 현대적인 한국 화장품 전자상거래 플랫폼입니다.
 
-## LIVE-DEMO
+## 🚀 라이브 데모
 
-https://korean-cosmetics-tint.vercel.app/
+👉 **[데모 보기](https://korean-cosmetics-tint.vercel.app/)**
 
-**데모 사용자 자격 증명 (역할: user, 관리자 패널 접근 불가):**
+### 데모 자격 증명
 
-email: demo-user@tint.com
-password: DemoUserPass1234-
+#### 👤 사용자 계정
+*역할: user (관리자 패널 접근 불가)*
 
-**데모 관리자 자격 증명 (역할: admin, 관리자 패널 접근 가능):**
-email: demo-admin@tint.com
-password: DemoAdminPass1234-
+```
+Email:    demo-user@tint.com
+Password: DemoUserPass1234-
+```
 
-⚠️ 데모 계정은 테스트 목적으로만 사용됩니다.
+#### 🔐 관리자 계정
+*역할: admin (관리자 패널 전체 접근 가능)*
+
+```
+Email:    demo-admin@tint.com
+Password: DemoAdminPass1234-
+```
+
+> ⚠️ **참고:** 데모 계정은 테스트 목적으로만 사용됩니다.
 
 ## 📋 목차
 

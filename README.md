@@ -7,20 +7,29 @@
 
 A modern Korean cosmetics e-commerce platform with full e-commerce functionality.
 
-## LIVE-DEMO:
+## 🚀 Live Demo
 
-https://korean-cosmetics-tint.vercel.app/
+👉 **[View Live Demo](https://korean-cosmetics-tint.vercel.app/)**
 
-**Demo user credentials (role: user, no access to admin panel):**
+### Demo Credentials
 
-email: demo-user@tint.com
-password: DemoUserPass1234-
+#### 👤 User Account
+*Role: user (no access to admin panel)*
 
-**Demo admin credentials (role: admin, has access to admin panel):**
-email: demo-admin@tint.com
-password: DemoAdminPass1234-
+```
+Email:    demo-user@tint.com
+Password: DemoUserPass1234-
+```
 
-⚠️ Demo accounts are for testing purposes only.
+#### 🔐 Admin Account
+*Role: admin (full access to admin panel)*
+
+```
+Email:    demo-admin@tint.com
+Password: DemoAdminPass1234-
+```
+
+> ⚠️ **Note:** Demo accounts are for testing purposes only.
 
 ## 📋 Table of Contents
 
