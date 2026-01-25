@@ -7,7 +7,7 @@
 
 A modern Korean cosmetics e-commerce platform with full e-commerce functionality.
 
-##LIVE-DEMO:
+## LIVE-DEMO:
 
 https://korean-cosmetics-tint.vercel.app/
 

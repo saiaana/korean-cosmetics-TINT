@@ -2,7 +2,7 @@
 
 완전한 전자상거래 기능을 갖춘 현대적인 한국 화장품 전자상거래 플랫폼입니다.
 
-##LIVE-DEMO
+## LIVE-DEMO
 
 https://korean-cosmetics-tint.vercel.app/
 
