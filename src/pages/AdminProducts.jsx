@@ -1,9 +1,9 @@
 
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useAdminProducts } from "../hooks/useAdminProducts";
 import AdminProductsTable from "../components/pages/admin/AdminProductsTable";
-
+import AdminPageReturnButton from "../components/pages/admin/AdminPageReturnButton";
 export default function AdminProducts() {
   const user = useSelector((state) => state.auth.user);
  const navigate = useNavigate();
@@ -16,6 +16,7 @@ export default function AdminProducts() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
+<AdminPageReturnButton />
       <h1 className="mb-8 text-3xl font-extrabold text-stone-800">
         Admin Panel - Products Management
       </h1>

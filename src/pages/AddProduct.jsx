@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import {  Navigate, useNavigate, useParams } from "react-router-dom";
 import {
   createProduct,
   getCategoriesList,
@@ -11,6 +11,7 @@ import {
 import { auth } from "../../firebase";
 import ROUTES from "../constants/routes";
 import Loading from "./Loading";
+import AdminPageReturnButton from "../components/pages/admin/AdminPageReturnButton";
 
 const CATEGORIES_OPTIONS = [
   "anti-age",
@@ -345,6 +346,8 @@ function AddProduct() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
       <div className="mb-8">
+<AdminPageReturnButton />
+
         <h1 className="mb-2 text-3xl font-extrabold text-stone-800">
           {isEditMode ? "Edit Product" : "Add New Product"}
         </h1>

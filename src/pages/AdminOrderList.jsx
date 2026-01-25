@@ -4,6 +4,7 @@ import ROUTES from "../constants/routes";
 import Loading from "./Loading";
 import { useAdminOrder } from "../hooks/useAdminOrder";
 import AdminOrdersTable from "../components/pages/admin/AdminOrdersTable";
+import AdminPageReturnButton from "../components/pages/admin/AdminPageReturnButton";
 
 function AdminOrderList() {
   const user = useSelector((state) => state.auth.user);
@@ -21,6 +22,7 @@ function AdminOrderList() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
+<AdminPageReturnButton />
       <h1 className="mb-8 text-3xl font-extrabold text-stone-800">
         Admin Panel - Orders Management
       </h1>
