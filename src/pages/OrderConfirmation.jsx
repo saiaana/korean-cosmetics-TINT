@@ -41,7 +41,6 @@ function OrderConfirmation() {
     return <OrderNotFound />;
   }
 
-  console.log(order);
 
   return (
     <div className="mx-auto max-w-5xl space-y-10 px-4">

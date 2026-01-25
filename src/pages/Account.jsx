@@ -12,7 +12,6 @@ function Account() {
 
   const { orders, loading: isLoadingOrders, error } = useUserOrders(user?.uid);
 
-  console.log(orders);
 
   if (!isAuthInitialized) {
     return <Loading />;

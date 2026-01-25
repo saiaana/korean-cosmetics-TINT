@@ -18,11 +18,16 @@ export default function useLogin() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  console.log(user);
+
   useEffect(() => {
-    if (user) {
+    if(user&& user.role && user.role === "admin") {
+      navigate(ROUTES.admin);
+    }
+    if (user && user.role && user.role !== "admin") {
       navigate(ROUTES.account);
     }
-  }, [user, isAuthInitialized, navigate]);
+  }, [user, isAuthInitialized, navigate, user?.role]);
 
   const [formData, setFormData] = useState({
     email: "",
